@@ -1,0 +1,8 @@
+#mainPane{
+    -fx-background-radius: 40 40 40 40;
+    -fx-background-color: white;
+}
+.label{
+    -fx-text-fill: rgb(66, 66, 66);
+    -fx-font-family: "Century Gothic" ;
+}
