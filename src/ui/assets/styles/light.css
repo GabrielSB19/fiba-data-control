@@ -6,3 +6,27 @@
     -fx-text-fill: rgb(66, 66, 66);
     -fx-font-family: "Century Gothic" ;
 }
+#title{
+    -fx-text-fill: rgb(3, 3, 3);
+    -fx-font-family: "Century Gothic" ;
+    -fx-font-size: 26px;
+    -fx-text-fill:gray;
+}
+#topPane{
+    -fx-background-color: linear-gradient(to left,rgb(201, 197, 0) ,#f8f7a1);
+    -fx-background-radius: 40 40 0 0;
+}
+.button{
+    -fx-background-radius: 40 40 40 40;
+    -fx-background-color: linear-gradient(to left,rgb(0, 13, 201) ,#a7a1f8);
+    -fx-font-family: "Century Gothic" ;
+}
+.button:hover{
+    -fx-background-color: linear-gradient(to left,rgb(160, 157, 0) ,#dad614);
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 40 40 40 40;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
