@@ -6,3 +6,17 @@
     -fx-text-fill: rgb(255, 255, 255);
     -fx-font-family: "Century Gothic" ;
 }
+#title{
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-family: "Century Gothic" ;
+    -fx-font-size: 20px;
+}
+#topPane{
+    -fx-background-color: linear-gradient(to left,rgb(14, 2, 180) ,#a1aef8);
+    -fx-background-radius: 40 40 0 0;
+}
+.button{
+    -fx-background-radius: 40 40 40 40;
+    -fx-background-color: linear-gradient(to left,rgb(139, 170, 0) ,#dee759);
+    -fx-font-family: "Century Gothic" ;
+}
