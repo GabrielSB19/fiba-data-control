@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="450.0" styleClass="box" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton fx:id="edit" layoutX="249.0" layoutY="338.0" prefHeight="35.0" prefWidth="118.0" text="Edit">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="127.0" fitWidth="172.0" layoutX="53.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Greek_freak.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="156.0" layoutY="225.0" text="Four keys Stats">
+         <font>
+            <Font name="Century Gothic" size="20.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#909090" />
+                  <Stop color="#909090" offset="0.007518796992481203" />
+                  <Stop color="#393939" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Label layoutX="251.0" layoutY="39.0" prefHeight="22.0" prefWidth="87.0" text="Name:">
+         <font>
+            <Font name="Century Gothic" size="17.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#d0d0d0" />
+                  <Stop color="#4a4a4a" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Label layoutX="251.0" layoutY="95.0" text="Team:">
+         <font>
+            <Font name="Century Gothic" size="17.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#d0d0d0" />
+                  <Stop color="#4a4a4a" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Label layoutX="252.0" layoutY="153.0" prefHeight="22.0" prefWidth="56.0" text="Age:">
+         <font>
+            <Font name="Century Gothic" size="17.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#d0d0d0" />
+                  <Stop color="#4a4a4a" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <JFXTextField layoutX="252.0" layoutY="61.0">
+         <focusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#d0d0d0" />
+                  <Stop color="#8ca401" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </focusColor>
+         <unFocusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#009e18" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </unFocusColor>
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField layoutX="251.0" layoutY="117.0">
+         <focusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#d0d0d0" />
+                  <Stop color="#8ca401" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </focusColor>
+         <unFocusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#fcfcfc" />
+                  <Stop color="#fcfcfc" offset="0.018796992481203006" />
+                  <Stop color="#12c344" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </unFocusColor>
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField layoutX="251.0" layoutY="170.0">
+         <focusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#d0d0d0" />
+                  <Stop color="#8ca401" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </focusColor>
+         <unFocusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#009e18" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </unFocusColor>
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="cancel" layoutX="92.0" layoutY="338.0" prefHeight="35.0" prefWidth="118.0" text="Cancel">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="save" layoutX="249.0" layoutY="338.0" prefHeight="35.0" prefWidth="118.0" text="Save">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="173.0" layoutY="4.0" text="Basic Data">
+         <font>
+            <Font name="Century Gothic" size="20.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#909090" />
+                  <Stop color="#909090" offset="0.007518796992481203" />
+                  <Stop color="#393939" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+   </children>
+</Pane>
