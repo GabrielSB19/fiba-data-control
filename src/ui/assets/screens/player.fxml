@@ -2,7 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -10,20 +14,19 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="450.0" styleClass="box" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" styleClass="box" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXButton fx:id="edit" layoutX="249.0" layoutY="338.0" prefHeight="35.0" prefWidth="118.0" text="Edit">
+      <JFXButton fx:id="edit" layoutX="241.0" layoutY="445.0" onAction="#editPlayer" prefHeight="35.0" prefWidth="118.0" text="Edit">
          <font>
             <Font name="Century Gothic" size="18.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="127.0" fitWidth="172.0" layoutX="53.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="141.0" fitWidth="151.0" layoutX="51.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Greek_freak.png" />
          </image>
       </ImageView>
-      <Label layoutX="156.0" layoutY="225.0" text="Four keys Stats">
+      <Label layoutX="178.0" layoutY="246.0" text="Keys Stats">
          <font>
             <Font name="Century Gothic" size="20.0" />
          </font>
@@ -37,46 +40,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label layoutX="251.0" layoutY="39.0" prefHeight="22.0" prefWidth="87.0" text="Name:">
-         <font>
-            <Font name="Century Gothic" size="17.0" />
-         </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop color="#d0d0d0" />
-                  <Stop color="#4a4a4a" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </textFill>
-      </Label>
-      <Label layoutX="251.0" layoutY="95.0" text="Team:">
-         <font>
-            <Font name="Century Gothic" size="17.0" />
-         </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop color="#d0d0d0" />
-                  <Stop color="#4a4a4a" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </textFill>
-      </Label>
-      <Label layoutX="252.0" layoutY="153.0" prefHeight="22.0" prefWidth="56.0" text="Age:">
-         <font>
-            <Font name="Century Gothic" size="17.0" />
-         </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop color="#d0d0d0" />
-                  <Stop color="#4a4a4a" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </textFill>
-      </Label>
-      <JFXTextField layoutX="252.0" layoutY="61.0">
+      <JFXTextField labelFloat="true" layoutX="249.0" layoutY="52.0" prefHeight="28.0" prefWidth="151.0" promptText="Name">
          <focusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -97,7 +61,7 @@
             <Font name="Century Gothic" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXTextField layoutX="251.0" layoutY="117.0">
+      <JFXTextField labelFloat="true" layoutX="248.0" layoutY="108.0" prefHeight="28.0" prefWidth="151.0" promptText="Team">
          <focusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -119,7 +83,7 @@
             <Font name="Century Gothic" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXTextField layoutX="251.0" layoutY="170.0">
+      <JFXTextField labelFloat="true" layoutX="248.0" layoutY="167.0" prefHeight="28.0" prefWidth="151.0" promptText="Age">
          <focusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -140,17 +104,17 @@
             <Font name="Century Gothic" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXButton fx:id="cancel" layoutX="92.0" layoutY="338.0" prefHeight="35.0" prefWidth="118.0" text="Cancel">
+      <JFXButton fx:id="cancel" layoutX="91.0" layoutY="445.0" onAction="#cancel" prefHeight="35.0" prefWidth="118.0" text="Cancel">
          <font>
             <Font name="Century Gothic" size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="save" layoutX="249.0" layoutY="338.0" prefHeight="35.0" prefWidth="118.0" text="Save">
+      <JFXButton fx:id="save" layoutX="241.0" layoutY="445.0" onAction="#savePlayer" prefHeight="35.0" prefWidth="118.0" text="Save">
          <font>
             <Font name="Century Gothic" size="18.0" />
          </font>
       </JFXButton>
-      <Label layoutX="173.0" layoutY="4.0" text="Basic Data">
+      <Label layoutX="173.0" layoutY="10.0" text="Basic Data">
          <font>
             <Font name="Century Gothic" size="20.0" />
          </font>
@@ -164,5 +128,14 @@
             </LinearGradient>
          </textFill>
       </Label>
+      <BarChart layoutX="28.0" layoutY="278.0" prefHeight="150.0" prefWidth="387.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <Separator layoutX="50.0" layoutY="220.0" prefHeight="8.0" prefWidth="351.0" />
    </children>
 </Pane>
