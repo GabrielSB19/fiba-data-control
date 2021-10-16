@@ -1,4 +1,4 @@
-package colletions;
+package collections;
 
 public class Node <K, V>{
 

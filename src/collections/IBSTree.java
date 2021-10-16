@@ -1,4 +1,4 @@
-package colletions;
+package collections;
 
 public interface IBSTree <K extends Comparable<K>, V>{
     void inOrder();
