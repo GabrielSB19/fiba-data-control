@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -19,6 +20,7 @@ import javafx.stage.StageStyle;
 import routes.Route;
 
 public class FibaController {
+
     @FXML
     private Pane mainPane;
 
@@ -39,6 +41,16 @@ public class FibaController {
 
     @FXML
     private Text lblAge;
+
+    @FXML
+    private Pane pnName;
+
+    @FXML
+    private Label lblDialogName;
+
+    private Stage modal;
+    private int searchType;
+
     private PlayerController pController;
 
     public FibaController() {
@@ -85,16 +97,6 @@ public class FibaController {
     }
 
     @FXML
-    void assistSearch(ActionEvent event) {
-
-    }
-
-    @FXML
-    void blockSearch(ActionEvent event) {
-
-    }
-
-    @FXML
     void exportData(MouseEvent event) {
 
     }
@@ -105,7 +107,7 @@ public class FibaController {
     }
 
     @FXML
-    void nameSearch(ActionEvent event) {
+    void newPlayer(ActionEvent event) {
         if (pController.getModal() == null) {
             pController.setModal(loadModal(Route.PLAYER, pController));
             pController.getModal().show();
@@ -113,12 +115,47 @@ public class FibaController {
     }
 
     @FXML
-    void reboundSearch(ActionEvent event) {
+    void cancel(ActionEvent event) {
+        modal.close();
+        modal = null;
+    }
 
+    private void initDialog(int type, String lbl) {
+        searchType = type;
+        if (modal == null) {
+            modal = loadModal(Route.SEARCH, this);
+            modal.show();
+        }
+        lblDialogName.setText(lbl);
+        if (type == 1) {
+            pnName.setVisible(true);
+        } else {
+            pnName.setVisible(false);
+        }
+    }
+
+    @FXML
+    void nameSearch(ActionEvent event) {
+        initDialog(1, "Name Searching Type");
+    }
+
+    @FXML
+    void assistSearch(ActionEvent event) {
+        initDialog(2, "Assist Searching Type");
+    }
+
+    @FXML
+    void blockSearch(ActionEvent event) {
+        initDialog(3, "Block Searching Type");
+    }
+
+    @FXML
+    void reboundSearch(ActionEvent event) {
+        initDialog(4, "Rebound Searching Type");
     }
 
     @FXML
     void stealSearh(ActionEvent event) {
-
+        initDialog(5, "Steal Searching Type");
     }
 }

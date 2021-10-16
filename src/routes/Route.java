@@ -1,7 +1,7 @@
 package routes;
 
 public enum Route {
-    SPLASH("/ui/assets/screens/loader.fxml"),MAINPANE("/ui/assets/screens/mainPane.fxml"),LIGHT("/ui/assets/styles/light.css"),DARK("/ui/assets/styles/dark.css"),PLAYER("/ui/assets/screens/player.fxml");
+    SPLASH("/ui/assets/screens/loader.fxml"),MAINPANE("/ui/assets/screens/mainPane.fxml"),LIGHT("/ui/assets/styles/light.css"),DARK("/ui/assets/styles/dark.css"),PLAYER("/ui/assets/screens/player.fxml"),SEARCH("/ui/assets/screens/dialog.fxml");
 
     private String route;
 

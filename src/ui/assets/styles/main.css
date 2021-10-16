@@ -7,6 +7,12 @@
     -fx-background-radius: 20;
     -fx-background-color: white;
 }
+.jfx-slider> .thumb{
+    -fx-background-color:linear-gradient(to right,#fffd8b ,#b3a700);
+}
+.jfx-slider> .colored-track{
+    -fx-background-color:linear-gradient(to right,#fffd8b ,#b3a700);
+}
 #save{
     -fx-font-family: "Century gothic" ;
     -fx-font-style: italic;

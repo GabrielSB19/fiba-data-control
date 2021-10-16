@@ -16,7 +16,7 @@ import javafx.stage.StageStyle;
 import routes.Route;
 
 public class Main extends Application {
-    private final int RENDER_COMPONENTES = 5000;
+    private final int RENDER_COMPONENTES = 4000;
     private FibaController fibaController;
 
     public Main() {
