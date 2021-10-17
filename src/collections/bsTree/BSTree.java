@@ -1,4 +1,4 @@
-package collections;
+package collections.bsTree;
 
 public class BSTree<K extends Comparable<K>, V extends Comparable<V>> implements IBSTree<K, V> {
 

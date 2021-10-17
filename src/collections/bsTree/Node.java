@@ -1,4 +1,4 @@
-package collections;
+package collections.bsTree;
 
 public class Node <K, V>{
 
