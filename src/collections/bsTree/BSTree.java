@@ -53,7 +53,7 @@ public class BSTree<K extends Comparable<K>, V extends Comparable<V>> implements
     }
 
     @Override
-    public K maximun(K key) {
+    public K maximum(K key) {
         Node<K, V> temp = search(key);
         if (temp != null) {
             while (temp.getRight() != null) {
