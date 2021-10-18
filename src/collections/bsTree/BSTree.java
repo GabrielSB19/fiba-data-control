@@ -3,24 +3,26 @@ package collections.bsTree;
 public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
 
     private Node<K, V> root;
+    String msg = "";
 
     @Override
     public String inOrder() {
+        msg = "";
         if (root != null) {
-            return inOrder(root);
+            inOrder(root);
+            return msg;
         } else {
             return " ";
         }
     }
 
-    private String inOrder(Node<K, V> current) {
-        String msg = "";
+    private void inOrder(Node<K, V> current) {
         if (current != null) {
             inOrder(current.getLeft());
             msg += " " + current.getKey();
             inOrder(current.getRight());
         }
-        return msg;
+
     }
 
     @Override

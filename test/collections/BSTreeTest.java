@@ -23,7 +23,7 @@ public class BSTreeTest {
     public void inOrder() {
         Player player1 = new Player("David", 28, "Chicago Bulls", 345);
         Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118);
-        Player player3 = new Player("Juan", 28, "Chicago Bulls", 203);
+        Player player3 = new Player("Juan", 28, "Chicago Bulls", 403);
 
         BSTree<Integer, Player> bsTree = setUpScenary1();
 
@@ -31,9 +31,12 @@ public class BSTreeTest {
         bsTree.insertion(player2.getPoint(), player2);
         bsTree.insertion(player3.getPoint(), player3);
 
+        int points = bsTree.search(player2.getPoint()).getKey();
+
         String expected = bsTree.inOrder();
 
-        assertEquals("118 345 203", expected);
+        assertEquals(" 118 345 403", expected);
+        assertEquals(118, points);
 
     }
 
