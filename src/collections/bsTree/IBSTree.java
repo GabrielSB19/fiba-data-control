@@ -5,7 +5,7 @@ public interface IBSTree<K extends Comparable<K>, V> {
 
     Node<K, V> search(K key);
 
-    K mininum(K key);
+    K minimum(K key);
 
     K maximum(K key);
 

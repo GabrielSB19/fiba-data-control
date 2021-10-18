@@ -46,7 +46,7 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
     }
 
     @Override
-    public K mininum(K key) {
+    public K minimum(K key) {
         Node<K, V> temp = search(key);
         if (temp != null) {
             while (temp.getLeft() != null) {
@@ -76,7 +76,7 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
         Node<K, V> temp = search(key);
         if (temp != null) {
             if (temp.getRight() != null) {
-                return mininum(temp.getRight().getKey());
+                return minimum(temp.getRight().getKey());
             }
             Node<K, V> parent = temp.getParent();
             while (parent != null && temp == parent.getRight()) {
