@@ -1,7 +1,7 @@
 package collections.bsTree;
 
 public interface IBSTree<K extends Comparable<K>, V> {
-    void inOrder();
+    String inOrder();
 
     Node<K, V> search(K key);
 
