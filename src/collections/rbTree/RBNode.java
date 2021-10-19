@@ -1,13 +1,13 @@
 package collections.rbTree;
 
-public class Node<K,V> {
+public class RBNode<K,V> {
 
     private K key;
     private V value;
-    private Node<K,V> left, right;
+    private RBNode<K,V> left, right;
     private boolean color;
 
-    public Node(K key, V value) {
+    public RBNode(K key, V value) {
         this.key = key;
         this.value = value;
         left = null;
@@ -33,19 +33,19 @@ public class Node<K,V> {
         this.value = value;
     }
 
-    public Node<K,V> getLeft() {
+    public RBNode<K,V> getLeft() {
         return this.left;
     }
 
-    public void setLeft(Node<K,V> left) {
+    public void setLeft(RBNode<K,V> left) {
         this.left = left;
     }
 
-    public Node<K,V> getRight() {
+    public RBNode<K,V> getRight() {
         return this.right;
     }
 
-    public void setRight(Node<K,V> right) {
+    public void setRight(RBNode<K,V> right) {
         this.right = right;
     }
 

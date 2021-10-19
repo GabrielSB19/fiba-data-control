@@ -1,7 +1,8 @@
 package collections.rbTree;
 
-public class RBTree<K extends Comparable<K>, V> {
-	private Node<K, V> root;
+public class RBTree<K extends Comparable<K>, V> implements IRBTree<K,V> {
+
+	private RBNode<K, V> root;
 	private int size;
 	private static final boolean RED = true;
 	private static final boolean BLACK = false;
@@ -24,8 +25,8 @@ public class RBTree<K extends Comparable<K>, V> {
 	// T1 x ---------> node T3
 	// / \ / \
 	// T2 T3 T1 T2
-	private Node<K, V> leftRotate(Node<K, V> node) {
-		Node<K, V> x = node.getRight();// definición
+	private RBNode<K, V> leftRotate(RBNode<K, V> node) {
+		RBNode<K, V> x = node.getRight();// definición
 		// empezar a rotar
 		node.setRight(x.getLeft());
 		x.setLeft(node);
@@ -41,8 +42,8 @@ public class RBTree<K extends Comparable<K>, V> {
 	// x T2 -------> y node
 	// / \ / \
 	// y T1 T1 T2
-	private Node<K, V> rightRotate(Node<K, V> node) {
-		Node<K, V> x = node.getLeft();// definición
+	private RBNode<K, V> rightRotate(RBNode<K, V> node) {
+		RBNode<K, V> x = node.getLeft();// definición
 		// rotar
 		node.setLeft(x.getRight());
 		x.setRight(node);
@@ -54,14 +55,14 @@ public class RBTree<K extends Comparable<K>, V> {
 	}
 
 	// Cambio de color es agregar elementos a la derecha de los 3 nodos
-	private void flipColors(Node<K, V> node) {
+	private void flipColors(RBNode<K, V> node) {
 		node.setColor(RED);// Es posible que el nodo raíz deba fusionarse para que sea rojo
 		node.getLeft().setColor(BLACK);
 		node.getRight().setColor(BLACK);
 	}
 
 	// Determine si el nodo raíz del árbol rojo-negro es rojo
-	private boolean isRed(Node<K, V> node) {
+	private boolean isRed(RBNode<K, V> node) {
 		if (node == null)// Naturaleza del árbol rojo-negro Los nodos vacíos son negros por defecto
 			return BLACK;
 		return node.getColor();
@@ -76,11 +77,11 @@ public class RBTree<K extends Comparable<K>, V> {
 	// Insertar elementos (clave, valor) en el árbol rojo-negro enraizado en el
 	// nodo, algoritmo recursivo
 	// Devuelve la raíz del árbol rojo-negro después de insertar un nuevo nodo
-	private Node<K, V> add(Node<K, V> node, K key, V value) {
+	private RBNode<K, V> add(RBNode<K, V> node, K key, V value) {
 
 		if (node == null) {
 			size++;
-			return new Node<K, V>(key, value);// nodo rojo
+			return new RBNode<K, V>(key, value);// nodo rojo
 		}
 
 		if (key.compareTo(node.getKey()) < 0)
@@ -94,8 +95,7 @@ public class RBTree<K extends Comparable<K>, V> {
 		if (isRed(node.getRight()) && !isRed(node.getLeft()))// El hijo derecho es rojo, el hijo izquierdo no es rojo
 			node = leftRotate(node);
 		// Gira a la derecha
-		if (isRed(node.getLeft()) && isRed(node.getLeft().getLeft()))// El hijo izquierdo es rojo, el hijo izquierdo del
-																		// hijo izquierdo también es rojo
+		if (isRed(node.getLeft()) && isRed(node.getLeft().getLeft()))// El hijo izquierdo es rojo, el hijo izquierdo del																		// hijo izquierdo también es rojo
 			node = rightRotate(node);
 		// Cambio de color
 		if (isRed(node.getLeft()) && isRed(node.getRight()))// Tanto el niño izquierdo como el derecho son rojos
@@ -105,7 +105,7 @@ public class RBTree<K extends Comparable<K>, V> {
 
 	// Devuelve el nodo donde se encuentra la clave en el árbol de búsqueda binaria
 	// con nodo como nodo raíz
-	private Node<K, V> getNode(Node<K, V> node, K key) {
+	private RBNode<K, V> getNode(RBNode<K, V> node, K key) {
 		if (node == null) {
 			return null;
 		}
@@ -122,12 +122,12 @@ public class RBTree<K extends Comparable<K>, V> {
 	}
 
 	public V get(K key) {
-		Node<K, V> node = getNode(root, key);
+		RBNode<K, V> node = getNode(root, key);
 		return node == null ? null : node.getValue();
 	}
 
 	public void set(K key, V newValue) {
-		Node<K, V> node = getNode(root, key);
+		RBNode<K, V> node = getNode(root, key);
 		if (node == null) {
 			throw new IllegalArgumentException(key + " doesn't exist!");
 		}
@@ -136,7 +136,7 @@ public class RBTree<K extends Comparable<K>, V> {
 
 	// Devuelve el nodo donde se encuentra el valor mínimo del árbol de búsqueda
 	// binario enraizado en el nodo
-	private Node<K, V> minimum(Node<K, V> node) {
+	private RBNode<K, V> minimum(RBNode<K, V> node) {
 		if (node.getLeft() == null)
 			return node;
 		return minimum(node.getLeft());
@@ -146,9 +146,9 @@ public class RBTree<K extends Comparable<K>, V> {
 	// nodo
 	// Devuelve la raíz del nuevo árbol de búsqueda binaria después de eliminar el
 	// nodo
-	private Node<K, V> removeMin(Node<K, V> node) {
+	private RBNode<K, V> removeMin(RBNode<K, V> node) {
 		if (node.getLeft() == null) {
-			Node<K, V> rightNode = node.getRight();
+			RBNode<K, V> rightNode = node.getRight();
 			node.setRight(null);
 			size--;
 			return rightNode;
@@ -159,7 +159,7 @@ public class RBTree<K extends Comparable<K>, V> {
 
 	// Elimina el nodo clave del árbol de búsqueda binaria
 	public V remove(K key) {
-		Node<K, V> node = getNode(root, key);
+		RBNode<K, V> node = getNode(root, key);
 		if (node != null) {
 			root = remove(root, key);
 			return node.getValue();
@@ -167,7 +167,7 @@ public class RBTree<K extends Comparable<K>, V> {
 		return null;
 	}
 
-	private Node<K, V> remove(Node<K, V> node, K key) {
+	private RBNode<K, V> remove(RBNode<K, V> node, K key) {
 
 		if (node == null)
 			return null;
@@ -181,7 +181,7 @@ public class RBTree<K extends Comparable<K>, V> {
 		} else { // key.compareTo(node.key) == 0
 			// El subárbol izquierdo del nodo a eliminar está vacío
 			if (node.getLeft() == null) {
-				Node<K, V> rightNode = node.getRight();
+				RBNode<K, V> rightNode = node.getRight();
 				node.setRight(null);
 				size--;
 				return rightNode;
@@ -189,7 +189,7 @@ public class RBTree<K extends Comparable<K>, V> {
 
 			// El caso en el que el subárbol derecho del nodo a eliminar está vacío
 			if (node.getRight() == null) {
-				Node<K, V> leftNode = node.getLeft();
+				RBNode<K, V> leftNode = node.getLeft();
 				node.setLeft(null);
 				size--;
 				return leftNode;
@@ -198,7 +198,7 @@ public class RBTree<K extends Comparable<K>, V> {
 			// Cuando los subárboles izquierdo y derecho del nodo a eliminar no están vacíos
 
 			// Encuentra el sucesor o presusesor
-			Node<K, V> successor = minimum(node.getRight());
+			RBNode<K, V> successor = minimum(node.getRight());
 			successor.setRight(removeMin(node.getRight()));
 			successor.setLeft(node.getLeft());
 

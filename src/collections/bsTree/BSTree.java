@@ -2,8 +2,20 @@ package collections.bsTree;
 
 public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
 
-    private Node<K, V> root;
+    private BSNode<K, V> root;
     String msg = "";
+
+    private int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+
+    protected int height(BSNode<K, V> node) {
+        return (node == null) ? 0 : node.getHeight();
+    }
+
+    protected void updateHeight(BSNode<K, V> node) {
+        node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
+    }
 
     @Override
     public String inOrder() {
@@ -16,7 +28,7 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
         }
     }
 
-    private void inOrder(Node<K, V> current) {
+    protected void inOrder(BSNode<K, V> current) {
         if (current != null) {
             inOrder(current.getLeft());
             msg += " " + current.getKey();
@@ -26,7 +38,7 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
     }
 
     @Override
-    public Node<K, V> search(K key) {
+    public BSNode<K, V> search(K key) {
         if (root != null) {
             return search(root, key);
         } else {
@@ -34,8 +46,8 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
         }
     }
 
-    private Node<K, V> search(Node<K, V> current, K key) {
-        if (key == current.getKey()) {
+    protected BSNode<K, V> search(BSNode<K, V> current, K key) {
+        if (current == null || key.compareTo(current.getKey()) == 0) {
             return current;
         }
         if (key.compareTo(current.getKey()) < 0) {
@@ -47,7 +59,7 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
 
     @Override
     public K minimum(K key) {
-        Node<K, V> temp = search(key);
+        BSNode<K, V> temp = search(key);
         if (temp != null) {
             while (temp.getLeft() != null) {
                 temp = temp.getLeft();
@@ -60,7 +72,7 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
 
     @Override
     public K maximum(K key) {
-        Node<K, V> temp = search(key);
+        BSNode<K, V> temp = search(key);
         if (temp != null) {
             while (temp.getRight() != null) {
                 temp = temp.getRight();
@@ -73,12 +85,12 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
 
     @Override
     public K sucessor(K key) {
-        Node<K, V> temp = search(key);
+        BSNode<K, V> temp = search(key);
         if (temp != null) {
             if (temp.getRight() != null) {
                 return minimum(temp.getRight().getKey());
             }
-            Node<K, V> parent = temp.getParent();
+            BSNode<K, V> parent = temp.getParent();
             while (parent != null && temp == parent.getRight()) {
                 temp = parent;
                 parent = parent.getParent();
@@ -90,10 +102,10 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
     }
 
     @Override
-    public void insertion(K key, V value) {
-        Node<K, V> newNode = new Node<>(key, value);
-        Node<K, V> aux = null;
-        Node<K, V> temp = root;
+    public void add(K key, V value) {
+        BSNode<K, V> newNode = new BSNode<>(key, value);
+        BSNode<K, V> aux = null;
+        BSNode<K, V> temp = root;
         while (temp != null) {
             aux = temp;
             if (newNode.getKey().compareTo(temp.getKey()) < 0) {
@@ -114,10 +126,10 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
 
     @Override
     public void delete(K key) {
-        Node<K, V> toDelete = search(key);
+        BSNode<K, V> toDelete = search(key);
         if (toDelete != null) {
-            Node<K, V> y = null;
-            Node<K, V> x = null;
+            BSNode<K, V> y = null;
+            BSNode<K, V> x = null;
             if (toDelete.getLeft() == null || toDelete.getRight() == null) {
                 y = toDelete;
             } else {
@@ -143,4 +155,5 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
             }
         }
     }
+
 }

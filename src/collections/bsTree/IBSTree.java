@@ -3,7 +3,7 @@ package collections.bsTree;
 public interface IBSTree<K extends Comparable<K>, V> {
     String inOrder();
 
-    Node<K, V> search(K key);
+    BSNode<K, V> search(K key);
 
     K minimum(K key);
 
@@ -11,7 +11,8 @@ public interface IBSTree<K extends Comparable<K>, V> {
 
     K sucessor(K key);
 
-    void insertion(K key, V value);
+    void add(K key, V value);
 
     void delete(K key);
+
 }
