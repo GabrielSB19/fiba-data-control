@@ -2,8 +2,8 @@ package collections.bsTree;
 
 public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
 
-    private BSNode<K, V> root;
-    String msg = "";
+    protected BSNode<K, V> root;
+    protected String msg = "";
 
     @Override
     public String inOrder() {
@@ -132,6 +132,15 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
     protected void updateHeight(BSNode<K, V> node) {
         node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
     }
+
+    @Override
+    public void set(K key, V newValue) {
+		BSNode<K, V> node = search(key);
+		if (node == null) {
+			throw new IllegalArgumentException(key + " doesn't exist!");
+		}
+		node.setValue(newValue);
+	}
 
     @Override
     public BSNode<K, V> delete(K key) {

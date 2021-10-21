@@ -10,6 +10,7 @@ public class BSTreeTest {
 
     public IBSTree<Integer, Player> setUpScenary1() {
         IBSTree<Integer, Player> bsTree = new BSTree<>();
+
         Player player1 = new Player("David", 28, "Chicago Bulls", 345);
         Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118);
         Player player3 = new Player("Juan", 24, "Chicago Bulls", 403);

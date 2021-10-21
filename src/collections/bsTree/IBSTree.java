@@ -13,6 +13,8 @@ public interface IBSTree<K extends Comparable<K>, V> {
 
     BSNode<K, V> add(K key, V value);
 
+    void set(K key, V value);
+
     BSNode<K, V> delete(K key);
 
 }

@@ -1,6 +1,6 @@
 package collections.rbTree;
 
-public class RBTree<K extends Comparable<K>, V> implements IRBTree<K,V> {
+/*public class RBTree<K extends Comparable<K>, V> implements IRBTree<K,V> {
 
 	private RBNode<K, V> root;
 	private int size;
@@ -103,44 +103,7 @@ public class RBTree<K extends Comparable<K>, V> implements IRBTree<K,V> {
 		return node;
 	}
 
-	// Devuelve el nodo donde se encuentra la clave en el árbol de búsqueda binaria
-	// con nodo como nodo raíz
-	private RBNode<K, V> getNode(RBNode<K, V> node, K key) {
-		if (node == null) {
-			return null;
-		}
-		if (key.equals(node.getKey()))
-			return node;
-		else if (key.compareTo(node.getKey()) < 0)
-			return getNode(node.getLeft(), key);
-		else // if(key.compareTo(node.key) > 0)
-			return getNode(node.getRight(), key);
-	}
 
-	public boolean contains(K key) {
-		return getNode(root, key) != null;
-	}
-
-	public V get(K key) {
-		RBNode<K, V> node = getNode(root, key);
-		return node == null ? null : node.getValue();
-	}
-
-	public void set(K key, V newValue) {
-		RBNode<K, V> node = getNode(root, key);
-		if (node == null) {
-			throw new IllegalArgumentException(key + " doesn't exist!");
-		}
-		node.setValue(newValue);
-	}
-
-	// Devuelve el nodo donde se encuentra el valor mínimo del árbol de búsqueda
-	// binario enraizado en el nodo
-	private RBNode<K, V> minimum(RBNode<K, V> node) {
-		if (node.getLeft() == null)
-			return node;
-		return minimum(node.getLeft());
-	}
 
 	// Elimina el nodo más pequeño en el árbol de búsqueda binario con raíz en el
 	// nodo
@@ -208,4 +171,4 @@ public class RBTree<K extends Comparable<K>, V> implements IRBTree<K,V> {
 			return successor;
 		}
 	}
-}
+}*/

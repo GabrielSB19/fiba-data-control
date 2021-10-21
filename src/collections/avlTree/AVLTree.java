@@ -8,11 +8,22 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> implements
     @Override
     public BSNode<K, V> leftRotate(BSNode<K, V> x) {
         BSNode<K, V> y = x.getRight();
-        BSNode<K, V> z = y.getLeft();
+
+        x.setRight(y.getLeft());
+        y.getLeft().setParent(x);
+        y.setParent(x.getParent());
+
+        if(x.getParent()==null){
+            root=y;
+        }else if(x==x.getParent().getLeft()){
+            x.getParent().setLeft(y);
+        }else{
+            x.getParent().setRight(y);
+        }
 
         y.setLeft(x);
-        x.setRight(z);
-
+        x.setParent(y);
+        
         updateHeight(x);
         updateHeight(y);
 
@@ -22,10 +33,21 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> implements
     @Override
     public BSNode<K, V> rightRotate(BSNode<K, V> x) {
         BSNode<K, V> y = x.getLeft();
-        BSNode<K, V> z = y.getRight();
+
+        x.setLeft(y.getRight());
+        y.getRight().setParent(x);
+        y.setParent(x.getParent());
+
+        if(x.getParent()==null){
+            root=y;
+        }else if(x==x.getParent().getLeft()){
+            x.getParent().setLeft(y);
+        }else{
+            x.getParent().setRight(y);
+        }
 
         y.setRight(x);
-        x.setLeft(z);
+        x.setParent(y);
 
         updateHeight(x);
         updateHeight(y);

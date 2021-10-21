@@ -1,9 +1,8 @@
 package collections.avlTree;
 
 import collections.bsTree.BSNode;
-import collections.bsTree.IBSTree;
 
-public interface IAVLTree<K extends Comparable<K>, V> extends IBSTree<K, V> {
+public interface IAVLTree<K extends Comparable<K>, V> {
     BSNode<K, V> leftRotate(BSNode<K, V> x);
 
     BSNode<K, V> rightRotate(BSNode<K, V> x);
