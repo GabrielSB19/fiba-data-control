@@ -2,22 +2,9 @@ package collections.rbTree;
 
 /*public class RBTree<K extends Comparable<K>, V> implements IRBTree<K,V> {
 
-	private RBNode<K, V> root;
-	private int size;
 	private static final boolean RED = true;
 	private static final boolean BLACK = false;
 
-	public RBTree() {
-		size = 0;
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public boolean isEmpty() {
-		return size == 0;
-	}
 
 	// girar a la izquierda
 	// node x
