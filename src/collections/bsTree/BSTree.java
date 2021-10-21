@@ -5,18 +5,6 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
     private BSNode<K, V> root;
     String msg = "";
 
-    private int max(int a, int b) {
-        return (a > b) ? a : b;
-    }
-
-    protected int height(BSNode<K, V> node) {
-        return (node == null) ? 0 : node.getHeight();
-    }
-
-    protected void updateHeight(BSNode<K, V> node) {
-        node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
-    }
-
     @Override
     public String inOrder() {
         msg = "";
@@ -102,16 +90,16 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
     }
 
     @Override
-    public void add(K key, V value) {
-
+    public BSNode<K, V> add(K key, V value) {
         if (value != null) {
             BSNode<K, V> newNode = new BSNode<>(key, value);
             BSNode<K, V> aux = null;
             BSNode<K, V> temp = root;
 
             while (temp != null) {
+                // Ancestor
                 aux = temp;
-                if (newNode.getKey().compareTo(temp.getKey()) < 0) {
+                if (newNode.getKey().compareTo(temp.getKey()) <= 0) {
                     temp = temp.getLeft();
                 } else {
                     temp = temp.getRight();
@@ -122,15 +110,31 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
                 root = newNode;
             } else if (newNode.getKey().compareTo(aux.getKey()) < 0) {
                 aux.setLeft(newNode);
+                updateHeight(aux);
             } else {
                 aux.setRight(newNode);
+                updateHeight(aux);
             }
+            return aux;
+        } else {
+            return null;
         }
+    }
 
+    private int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+
+    protected int height(BSNode<K, V> node) {
+        return (node == null) ? 0 : node.getHeight();
+    }
+
+    protected void updateHeight(BSNode<K, V> node) {
+        node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
     }
 
     @Override
-    public void delete(K key) {
+    public BSNode<K, V> delete(K key) {
         BSNode<K, V> toDelete = search(key);
         if (toDelete != null) {
             BSNode<K, V> y = null;
@@ -152,12 +156,18 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
                 root = x;
             } else if (y == y.getParent().getLeft()) {
                 y.getParent().setLeft(x);
+                return y.getParent();
             } else {
                 y.getParent().setRight(x);
+                return y.getParent();
             }
             if (y != toDelete) {
                 toDelete.setKey(y.getKey());
+                return toDelete;
             }
+            return null;
+        } else {
+            return null;
         }
     }
 

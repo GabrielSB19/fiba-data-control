@@ -11,8 +11,8 @@ public interface IBSTree<K extends Comparable<K>, V> {
 
     K sucessor(K key);
 
-    void add(K key, V value);
+    BSNode<K, V> add(K key, V value);
 
-    void delete(K key);
+    BSNode<K, V> delete(K key);
 
 }
