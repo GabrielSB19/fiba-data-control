@@ -7,7 +7,7 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> implements
     private AVLNode<K, V> root;
 
     @Override
-    public void leftRotate(BSNode<K, V> x) {
+    public void leftRotate(AVLNode<K, V> x) {
         BSNode<K, V> y = x.getRight();
         BSNode<K, V> z = y.getLeft();
  
