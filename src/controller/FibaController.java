@@ -7,19 +7,20 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import model.FibaDataCenter;
 import model.Player;
 import routes.Route;
@@ -66,6 +67,9 @@ public class FibaController {
     private TableColumn<String, Player> tblcTeam;
 
     @FXML
+    private TableColumn<String, Player> tblcPoints;
+
+    @FXML
     private TableColumn<Integer, Player> tblcAsists;
 
     @FXML
@@ -78,7 +82,7 @@ public class FibaController {
     private TableColumn<Integer, Player> tblcSteals;
 
     @FXML
-    private TableColumn<?, ?> rblcActions;
+    private TableColumn<Player, String> tblcActions;
 
 
     private Stage modal;
@@ -201,5 +205,60 @@ public class FibaController {
 
     public void onTablePlayers(){
         ObservableList<Player> listPlayer = FXCollections.observableList(pFiba.getPlayers());
+        tblcPlayer.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tblcAge.setCellValueFactory(new PropertyValueFactory<>("age"));
+        tblcTeam.setCellValueFactory(new PropertyValueFactory<>("team"));
+        tblcPoints.setCellValueFactory(new PropertyValueFactory<>("point"));
+        tblcAsists.setCellValueFactory(new PropertyValueFactory<>("assists"));
+        tblcRebounds.setCellValueFactory(new PropertyValueFactory<>("bounces"));
+        tblcSteals.setCellValueFactory(new PropertyValueFactory<>("steals"));
+        tblcBlocks.setCellValueFactory(new PropertyValueFactory<>("blocks"));
+        renderShelveActions();
+        tblPlayers.setItems(listPlayer);
+    }
+
+    private void renderShelveActions() {
+        Callback<TableColumn<Player, String>, TableCell<Player, String>> cellFact = (
+                TableColumn<Player, String> param) -> {
+            final TableCell<Player, String> cell = new TableCell<Player, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        Button delete = new Button("Delete");
+                        delete.setId("delete");
+                        Button edit = new Button("Edit");
+                        edit.setId("edit");
+                        edit.getStylesheets().add(Route.DARK.getRoute());
+                        delete.getStylesheets().add(Route.DARK.getRoute());
+                        delete.setOnAction((ActionEvent event) -> {
+                            Player selectedS = (Player) getTableRow().getItem();
+                            /*
+                            boolean render;
+                            if (render) {
+                                GameStoreGUI.getInstance().createAlert("The shelve was removed succesfully!",
+                                        Route.SUCCESS);
+                            } else {
+                                GameStoreGUI.getInstance().createAlert("The shelve has games or references Sorry",
+                                        Route.ERROR);
+                            }
+                            
+                             */
+                        });
+                        HBox managebtn = new HBox(edit, delete);
+                        managebtn.setStyle("-fx-alignment:center");
+                        HBox.setMargin(delete, new Insets(2, 2, 0, 3));
+                        HBox.setMargin(edit, new Insets(2, 3, 0, 2));
+                        setGraphic(managebtn);
+                        setText(null);
+                    }
+                }
+            };
+            return cell;
+        };
+        tblcActions.setCellFactory(cellFact);
     }
 }
