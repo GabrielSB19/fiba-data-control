@@ -42,7 +42,6 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 		return x;// devuelve el nuevo nodo raíz
 	}
 
-
 	// Determine si el nodo raíz del árbol rojo-negro es rojo
 	private boolean isRed(RBNode<K, V> node) {
 		if (node == null)// Naturaleza del árbol rojo-negro Los nodos vacíos son negros por defecto
@@ -73,15 +72,16 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 				} else if (z.equals(parent.getRight())) {
 					z = parent;
 					leftRotate(z);
-				} else {
-					parent.setColor(BLACK);
-					grandParent.setColor(RED);
-					rightRotate(grandParent);
 				}
+				RBNode<K, V> newP = (RBNode<K, V>) z.getParent();
+				RBNode<K, V> newG = (RBNode<K, V>) z.getParent().getParent();
+				newP.setColor(BLACK);
+				newG.setColor(RED);
+				rightRotate(newG);
 			} else {
 
 			}
-
+			rbRoot.setColor(BLACK);
 		}
 	}
 
