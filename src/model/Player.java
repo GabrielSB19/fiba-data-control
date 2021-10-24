@@ -5,12 +5,20 @@ public class Player {
     private int age;
     private String team;
     private int point;
+    private int bounces;
+    private int assists;
+    private int steals;
+    private int blocks;
 
-    public Player(String name, int age, String team, int point) {
+    public Player(String name, int age, String team, int point, int bounces, int assists, int steals, int blocks) {
         this.name = name;
         this.age = age;
         this.team = team;
         this.point = point;
+        this.bounces = bounces;
+        this.assists = assists;
+        this.steals = steals;
+        this.blocks = blocks;
     }
 
     public String getName() {
@@ -45,4 +53,35 @@ public class Player {
         this.point = point;
     }
 
+    public int getBounces() {
+        return bounces;
+    }
+
+    public void setBounces(int bounces) {
+        this.bounces = bounces;
+    }
+
+    public int getAssists() {
+        return assists;
+    }
+
+    public void setAssists(int assists) {
+        this.assists = assists;
+    }
+
+    public int getSteals() {
+        return steals;
+    }
+
+    public void setSteals(int steals) {
+        this.steals = steals;
+    }
+
+    public int getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(int blocks) {
+        this.blocks = blocks;
+    }
 }

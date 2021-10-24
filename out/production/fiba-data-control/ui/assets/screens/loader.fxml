@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" style="-fx-background-color: #000;" styleClass="main-pane" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="376.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Fiba_logo.png" />
+         </image>
+      </ImageView>
+      <JFXSpinner layoutX="329.0" layoutY="184.0" prefHeight="223.0" prefWidth="293.0" />
+   </children>
+</Pane>
