@@ -46,11 +46,9 @@ public class FibaDataCenter {
             String line = br.readLine();
             line = br.readLine();
             long start = System.currentTimeMillis();
-            int count = 0;
             while (line != null){
                 String parts[] = line.split(",");
-                Player py = new Player(parts[0], Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]), Integer.parseInt(parts[4]),
-                        Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
+                Player py = new Player(parts[0], Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
                 trees[0].add(py.getPoint(), py);
                 trees[1].add(py.getAssists(), py);
                 trees[2].add(py.getBlocks(), py);
@@ -67,7 +65,8 @@ public class FibaDataCenter {
     }
 
     public ArrayList<Player> getPlayers(){
-        return trees[1].inOrder();
+        System.out.println(trees[0].inOrder().size());
+        return trees[0].inOrder();
     }
     /*
     BufferedReader br = new BufferedReader(new FileReader(fileChooser()));

@@ -201,16 +201,7 @@ public class FibaController {
     }
 
     public void onTablePlayers(){
-        //List<Player> players = pFiba.getPlayers();
+        pFiba.getPlayers();
         ObservableList<Player> listPlayer = FXCollections.observableList(pFiba.getPlayers());
-        tblcPlayer.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tblcAge.setCellValueFactory(new PropertyValueFactory<>("age"));
-        tblcTeam.setCellValueFactory(new PropertyValueFactory<>("team"));
-        tblcAsists.setCellValueFactory(new PropertyValueFactory<>("assists"));
-        tblcRebounds.setCellValueFactory(new PropertyValueFactory<>("bounces"));
-        tblcSteals.setCellValueFactory(new PropertyValueFactory<>("steals"));
-        tblcBlocks.setCellValueFactory(new PropertyValueFactory<>("blocks"));
-        tblPlayers.setItems(listPlayer);
-
     }
 }

@@ -119,7 +119,7 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
         newNode.setParent(aux);
         if (aux == null) {
             root = newNode;
-        } else if (newNode.getKey().compareTo(aux.getKey()) < 0) {
+        } else if (newNode.getKey().compareTo(aux.getKey()) <= 0) {
             aux.setLeft(newNode);
         } else {
             aux.setRight(newNode);
