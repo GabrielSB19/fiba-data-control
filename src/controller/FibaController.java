@@ -49,9 +49,6 @@ public class FibaController {
     private Text lblAge;
 
     @FXML
-    private Pane pnName;
-
-    @FXML
     private Label lblDialogName;
 
     @FXML
@@ -90,10 +87,11 @@ public class FibaController {
 
     private PlayerController pController;
     private FibaDataCenter pFiba;
+    private Player selected;
 
     public FibaController() {
-        pController = new PlayerController();
         pFiba = new FibaDataCenter();
+        pController = new PlayerController(pFiba, this);
     }
 
     @FXML
@@ -142,12 +140,16 @@ public class FibaController {
 
     @FXML
     void importData(MouseEvent event) throws IOException {
-        if(pFiba.importData()){
-            System.out.println("Importado correctamente");
-        } else {
+        try {
+            if(pFiba.importData()){
+                System.out.println("Importado correctamente");
+            } else {
+                System.out.println("Error al importar");
+            }
+            onTablePlayers();
+        } catch (NullPointerException e){
             System.out.println("Error al importar");
         }
-        onTablePlayers();
     }
 
     @FXML
@@ -171,16 +173,11 @@ public class FibaController {
             modal.show();
         }
         lblDialogName.setText(lbl);
-        if (type == 1) {
-            pnName.setVisible(true);
-        } else {
-            pnName.setVisible(false);
-        }
     }
 
     @FXML
-    void nameSearch(ActionEvent event) {
-        initDialog(1, "Name Searching Type");
+    void pointSearch(ActionEvent event) {
+        initDialog(1, "Point Searching Type");
     }
 
     @FXML
@@ -235,18 +232,18 @@ public class FibaController {
                         edit.getStylesheets().add(Route.DARK.getRoute());
                         delete.getStylesheets().add(Route.DARK.getRoute());
                         delete.setOnAction((ActionEvent event) -> {
-                            Player selectedS = (Player) getTableRow().getItem();
-                            /*
-                            boolean render;
-                            if (render) {
-                                GameStoreGUI.getInstance().createAlert("The shelve was removed succesfully!",
-                                        Route.SUCCESS);
-                            } else {
-                                GameStoreGUI.getInstance().createAlert("The shelve has games or references Sorry",
-                                        Route.ERROR);
+                            selected = (Player) getTableRow().getItem();
+                            pFiba.deletePlayer(selected);
+                            onTablePlayers();
+                        });
+                        edit.setOnAction((ActionEvent event) -> {
+                            if (modal == null) {
+                                selected = (Player) getTableRow().getItem();
+                                pController.setModal(loadModal(Route.PLAYER, pController));
+                                pController.getModal().show();
+                                pController.preparePlayerEdition(selected);
+                                onTablePlayers();
                             }
-                            
-                             */
                         });
                         HBox managebtn = new HBox(edit, delete);
                         managebtn.setStyle("-fx-alignment:center");
@@ -261,4 +258,5 @@ public class FibaController {
         };
         tblcActions.setCellFactory(cellFact);
     }
+
 }

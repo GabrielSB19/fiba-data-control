@@ -1,6 +1,7 @@
 package collections.bsTree;
 
 import collections.ITree;
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 import java.util.ArrayList;
 
@@ -30,28 +31,28 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     @Override
-    public BSNode<K, V> search(K key) {
+    public BSNode<K, V> search(K key, V value) {
         if (root != null) {
-            return search(root, key);
+            return search(root, key, value);
         } else {
             return null;
         }
     }
 
-    protected BSNode<K, V> search(BSNode<K, V> current, K key) {
-        if (current == null || key.compareTo(current.getKey()) == 0) {
+    protected BSNode<K, V> search(BSNode<K, V> current, K key, V value) {
+        if (current == null || (key.compareTo(current.getKey()) == 0 && value.equals(current.getValue()))) {
             return current;
         }
         if (key.compareTo(current.getKey()) < 0) {
-            return search(current.getLeft(), key);
+            return search(current.getLeft(), key, value);
         } else {
-            return search(current.getRight(), key);
+            return search(current.getRight(), key, value);
         }
     }
 
     @Override
-    public K minimum(K key) {
-        BSNode<K, V> temp = search(key);
+    public K minimum(K key, V value) {
+        BSNode<K, V> temp = search(key, value);
         if (temp != null) {
             while (temp.getLeft() != null) {
                 temp = temp.getLeft();
@@ -63,8 +64,8 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     @Override
-    public K maximum(K key) {
-        BSNode<K, V> temp = search(key);
+    public K maximum(K key, V value) {
+        BSNode<K, V> temp = search(key, value);
         if (temp != null) {
             while (temp.getRight() != null) {
                 temp = temp.getRight();
@@ -76,18 +77,18 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     @Override
-    public K sucessor(K key) {
-        BSNode<K, V> temp = search(key);
+    public K sucessor(K key, V value) {
+        BSNode<K, V> temp = search(key, value);
         if (temp != null) {
             if (temp.getRight() != null) {
-                return minimum(temp.getRight().getKey());
+                return minimum(temp.getRight().getKey(), temp.getRight().getValue());
             }
             BSNode<K, V> parent = temp.getParent();
             while (parent != null && temp == parent.getRight()) {
                 temp = parent;
                 parent = parent.getParent();
             }
-            return parent.getKey();
+            return (parent == null) ? null : parent.getKey();
         } else {
             return null;
         }
@@ -128,8 +129,8 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     @Override
-    public void set(K key, V newValue) {
-        BSNode<K, V> node = search(key);
+    public void set(K key, V newValue, V value) {
+        BSNode<K, V> node = search(key, value);
         if (node == null) {
             throw new IllegalArgumentException(key + " doesn't exist!");
         }
@@ -137,15 +138,15 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     @Override
-    public BSNode<K, V> delete(K key) {
-        BSNode<K, V> toDelete = search(key);
+    public BSNode<K, V> delete(K key, V value) {
+        BSNode<K, V> toDelete = search(key, value);
         if (toDelete != null) {
             BSNode<K, V> y = null;
             BSNode<K, V> x = null;
             if (toDelete.getLeft() == null || toDelete.getRight() == null) {
                 y = toDelete;
             } else {
-                y = search(sucessor(key));
+                y = search(sucessor(key, value), value);
             }
             if (y.getLeft() != null) {
                 x = y.getLeft();

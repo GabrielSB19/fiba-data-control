@@ -7,6 +7,7 @@ import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BSTreeTest {
+    /*
 
     public ITree<Integer, Player> setUpScenary1() {
         ITree<Integer, Player> bsTree = new BSTree<>();
@@ -45,10 +46,10 @@ public class BSTreeTest {
     public void inOrder() {
         ITree<Integer, Player> bsTree = setUpScenary1();
 
-        /*
+
         String expected = bsTree.inOrder();
         assertEquals(" 118 345 403", expected);
-        */
+
 
     }
 
@@ -56,12 +57,9 @@ public class BSTreeTest {
     public void inOrder2() {
 
         ITree<Integer, Player> bsTree = setUpScenary2();
-/*
         String expected = bsTree.inOrder();
 
         assertEquals(" 118 403", expected);
-
- */
 
     }
 
@@ -186,7 +184,7 @@ public class BSTreeTest {
 
         assertEquals(pE, player1.getName());
         assertEquals(bsTree.search(200), null);
-        */
+
     }
 
     @Test
@@ -210,14 +208,16 @@ public class BSTreeTest {
 
         ITree<Integer, Player> bsTree = setUpScenary2();
 
-        /*
+
         String inOrder = bsTree.inOrder();
 
         bsTree.delete(200);
 
         assertEquals(inOrder, bsTree.inOrder());
-        */
+
 
     }
+
+     */
 
 }

@@ -49,11 +49,7 @@ public class FibaDataCenter {
             while (line != null){
                 String parts[] = line.split(",");
                 Player py = new Player(parts[0], Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
-                trees[0].add(py.getPoint(), py);
-                trees[1].add(py.getAssists(), py);
-                trees[2].add(py.getBlocks(), py);
-                trees[3].add(py.getBounces(), py);
-                //trees[4].add(py.getSteals(), py);
+                addPlayer(py);
                 line = br.readLine();
             }
             long end = System.currentTimeMillis();
@@ -68,11 +64,20 @@ public class FibaDataCenter {
         System.out.println(trees[1].inOrder().size());
         return trees[1].inOrder();
     }
-    /*
-    BufferedReader br = new BufferedReader(new FileReader(fileChooser()));
-            String line = br.readLine();
-            line = br.readLine();
-     */
 
+    public void deletePlayer(Player py){
+        trees[0].delete(py.getPoint(), py);
+        trees[1].delete(py.getAssists(), py);
+        trees[2].delete(py.getBlocks(), py);
+        trees[3].delete(py.getBounces(), py);
+        //trees[4].add(py.getSteals(), py);
+    }
 
+    public void addPlayer(Player py) {
+        trees[0].add(py.getPoint(), py);
+        trees[1].add(py.getAssists(), py);
+        trees[2].add(py.getBlocks(), py);
+        trees[3].add(py.getBounces(), py);
+        //trees[4].add(py.getSteals(), py);
+    }
 }

@@ -23,7 +23,7 @@
    <children>
       <Pane fx:id="mainPane" prefHeight="650.0" prefWidth="950.0" stylesheets="@../styles/light.css">
          <children>
-            <Label layoutX="192.0" layoutY="261.0" prefHeight="16.0" prefWidth="47.0" text="Name">
+            <Label layoutX="192.0" layoutY="261.0" prefHeight="16.0" prefWidth="47.0" text="Points">
                <font>
                   <Font name="Century Gothic" size="13.0" />
                </font>
@@ -62,7 +62,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="183.0" layoutY="197.0" mnemonicParsing="false" onAction="#nameSearch" prefHeight="57.0" prefWidth="43.0">
+                  <Button layoutX="183.0" layoutY="197.0" mnemonicParsing="false" onAction="#pointSearch" prefHeight="57.0" prefWidth="43.0">
                      <graphic>
                         <ImageView fitHeight="47.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>

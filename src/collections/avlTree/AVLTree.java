@@ -78,8 +78,8 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
     }
 
     @Override
-    public AVLNode<K, V> delete(K key) {
-        AVLNode<K, V> ancester = (AVLNode<K, V>) super.delete(key);
+    public AVLNode<K, V> delete(K key, V value) {
+        AVLNode<K, V> ancester = (AVLNode<K, V>) super.delete(key, value);
         if (ancester != null) {
             rebalance(ancester, key);
         }

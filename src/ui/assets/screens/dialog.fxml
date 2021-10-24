@@ -64,33 +64,6 @@
                   <Font name="Century Gothic" size="16.0" />
                </font>
             </Label>
-            <Pane fx:id="pnName" prefHeight="87.0" prefWidth="414.0" styleClass="box" visible="false">
-               <children>
-                  <Label alignment="CENTER" layoutX="165.0" layoutY="14.0" prefHeight="20.0" prefWidth="84.0" text="Name:">
-                     <font>
-                        <Font name="Century Gothic" size="16.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField alignment="CENTER" layoutX="90.0" layoutY="44.0" prefHeight="27.0" prefWidth="257.0">
-                     <focusColor>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop color="#c1d016" />
-                              <Stop color="WHITE" offset="1.0" />
-                           </stops>
-                        </LinearGradient>
-                     </focusColor>
-                     <unFocusColor>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop color="#a6c307" />
-                              <Stop color="WHITE" offset="1.0" />
-                           </stops>
-                        </LinearGradient>
-                     </unFocusColor>
-                  </JFXTextField>
-               </children>
-            </Pane>
          </children>
       </Pane>
       <ImageView fitHeight="81.0" fitWidth="137.0" layoutX="73.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">

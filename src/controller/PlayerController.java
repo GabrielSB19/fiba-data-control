@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 
@@ -8,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.FibaDataCenter;
+import model.Player;
 
 public class PlayerController {
 
@@ -46,6 +49,27 @@ public class PlayerController {
     @FXML
     private JFXTextField txtAge;
 
+    @FXML
+    private JFXTextField txtPoints;
+
+    @FXML
+    private JFXButton cancel;
+
+    @FXML
+    private JFXButton save;
+
+    @FXML
+    private JFXButton edit;
+
+    private Player current;
+    private FibaDataCenter pFiba;
+    private FibaController pController;
+
+    public PlayerController(FibaDataCenter pFiba, FibaController pController){
+        this.pFiba = pFiba;
+        this.pController = pController;
+    }
+
     public Stage getModal() {
         return this.modal;
     }
@@ -75,12 +99,47 @@ public class PlayerController {
     }
 
     @FXML
-    void editPlayer(ActionEvent event) {
-
+    public void editPlayer(ActionEvent event) {
+        pFiba.deletePlayer(current);
+        current.setName(txtName.getText());
+        current.setAge(Integer.parseInt(txtAge.getText()));
+        current.setTeam(txtTeam.getText());
+        current.setPoint(Integer.parseInt(txtPoints.getText()));
+        current.setAssists((int) assists.getValue());
+        current.setBlocks((int) blocks.getValue());
+        current.setBounces((int) rebounds.getValue());
+        current.setSteals((int) steals.getValue());
+        savePlayer(event);
     }
 
     @FXML
     void savePlayer(ActionEvent event) {
+        if(current == null){
+            Player py = new Player(txtName.getText(), Integer.parseInt(txtAge.getText()), txtTeam.getText(), Integer.parseInt(txtPoints.getText()),
+                    (int) assists.getValue(),(int) blocks.getValue(), (int) rebounds.getValue(), (int) steals.getValue());
+            pFiba.addPlayer(py);
+        } else {
+            pFiba.addPlayer(current);
+            current = null;
+        }
+        pController.onTablePlayers();
+    }
 
+    public void preparePlayerEdition(Player selected) {
+        current = selected;
+        txtName.setText(String.valueOf(selected.getName()));
+        txtAge.setText(selected.getAge()+"");
+        txtTeam.setText(selected.getTeam());
+        txtPoints.setText(selected.getPoint()+"");
+        assists.setValue(selected.getAssists());
+        blocks.setValue(selected.getBlocks());
+        rebounds.setValue(selected.getBounces());
+        steals.setValue(selected.getSteals());
+        lblAssits.setText(assists.getValue()+"%");
+        lblBlocks.setText(blocks.getValue()+"%");
+        lblRebounds.setText(rebounds.getValue()+"%");
+        lblSteals.setText(steals.getValue()+"%");
+        edit.setVisible(true);
+        save.setVisible(false);
     }
 }

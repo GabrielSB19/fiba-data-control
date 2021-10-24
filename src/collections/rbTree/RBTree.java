@@ -86,7 +86,7 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 	}
 
 	@Override
-	public RBNode<K, V> delete(K key) {
+	public RBNode<K, V> delete(K key, V value) {
 		return null;
 
 	}
