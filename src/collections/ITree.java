@@ -9,6 +9,8 @@ public interface ITree<K extends Comparable<K>, V> {
 
     BSNode<K, V> search(K key, V value);
 
+    void filter(ArrayList<V> data, K key);
+
     K minimum(K key, V value);
 
     K maximum(K key, V value);

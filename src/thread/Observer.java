@@ -28,7 +28,7 @@ public class Observer implements IObserver {
     @Override
     public void onFinish() {
         fController.pBar.setVisible(false);
-        fController.onTablePlayers();
+        fController.onTablePlayers(1);
     }
 
 }

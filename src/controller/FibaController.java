@@ -144,6 +144,12 @@ public class FibaController {
     @FXML
     private JFXButton edit;
 
+    @FXML
+    private JFXTextField txtUntil;
+
+    @FXML
+    private JFXTextField txtSince;
+
     private Stage modal;
     private int searchType;
 
@@ -267,11 +273,12 @@ public class FibaController {
 
     @FXML
     public void search(ActionEvent event) {
-        pFiba.filterData(searchType);
+        pFiba.filterData(searchType, Integer.parseInt(txtSince.getText()), Integer.parseInt(txtUntil.getText()));
+        onTablePlayers(2);
     }
 
-    public void onTablePlayers() {
-        ArrayList<Player> data = pFiba.getPlayers();
+    public void onTablePlayers(int type) {
+        ArrayList<Player> data = pFiba.getPlayers(type);
         ObservableList<Player> listPlayer = FXCollections.observableList(data);
         int[] indicators = pFiba.updateIndicators(data);
         lblPlayers.setText(indicators[0] + "");
@@ -309,7 +316,7 @@ public class FibaController {
                         delete.setOnAction((ActionEvent event) -> {
                             selected = (Player) getTableRow().getItem();
                             pFiba.deletePlayer(selected);
-                            onTablePlayers();
+                            onTablePlayers(1);
                         });
                         edit.setOnAction((ActionEvent event) -> {
                             selected = (Player) getTableRow().getItem();
@@ -355,7 +362,7 @@ public class FibaController {
                 Integer.parseInt(txtPoints.getText()), (int) assists.getValue(), (int) blocks.getValue(),
                 (int) rebounds.getValue(), (int) steals.getValue());
         pFiba.addPlayer(py);
-        onTablePlayers();
+        onTablePlayers(1);
         cancel(event);
     }
 

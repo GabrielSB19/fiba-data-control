@@ -4,16 +4,12 @@ import collections.*;
 import collections.avlTree.AVLTree;
 import collections.bsTree.BSTree;
 import collections.rbTree.RBTree;
-import javafx.stage.FileChooser;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class FibaDataCenter {
 
     private ITree<Integer, Player>[] trees;
+    private ArrayList<Player> players = new ArrayList<>();
 
     @SuppressWarnings("unchecked")
     public FibaDataCenter() {
@@ -32,24 +28,33 @@ public class FibaDataCenter {
         trees[4] = new RBTree<>();
     }
 
-   
-
-    public void filterData(int searchType) {
+    public void filterData(int searchType, int since, int until) {
         switch (searchType) {
         case 1:
+            for (int i = since; i <= until; i++) {
+                System.out.println(i);
+                trees[searchType - 1].filter(players, i);
+                
+            }
 
             break;
 
         case 2:
-
+            for (int i = since; i <= until; i++) {
+                trees[searchType - 1].filter(players, i);
+            }
             break;
 
         case 3:
-
+            for (int i = since; i <= until; i++) {
+                trees[searchType - 1].filter(players, i);
+            }
             break;
 
         case 4:
-
+            for (int i = since; i <= until; i++) {
+                trees[searchType - 1].filter(players, i);
+            }
             break;
 
         case 5:
@@ -74,8 +79,12 @@ public class FibaDataCenter {
         return new int[] { data.size(), teams.size(), ageAverage };
     }
 
-    public ArrayList<Player> getPlayers() {
-        return trees[1].inOrder();
+    public ArrayList<Player> getPlayers(int type) {
+        if (type == 1) {
+            return trees[1].inOrder();
+        } else {
+            return players;
+        }
     }
 
     public void deletePlayer(Player py) {

@@ -11,61 +11,8 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="244.0" prefWidth="478.0" styleClass="box" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="478.0" styleClass="box" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="30.0" layoutY="109.0" prefHeight="87.0" prefWidth="414.0" styleClass="box">
-         <children>
-            <JFXTextField alignment="CENTER" layoutX="28.0" layoutY="44.0">
-               <focusColor>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="#c1d016" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </focusColor>
-               <unFocusColor>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="#a6c307" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </unFocusColor>
-               <font>
-                  <Font name="Century Gothic" size="13.0" />
-               </font>
-            </JFXTextField>
-            <Label alignment="CENTER" layoutX="76.0" layoutY="14.0" prefHeight="20.0" prefWidth="49.0" text="Until">
-               <font>
-                  <Font name="Century Gothic" size="16.0" />
-               </font>
-            </Label>
-            <JFXTextField alignment="CENTER" layoutX="232.0" layoutY="44.0">
-               <focusColor>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="#c1d016" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </focusColor>
-               <unFocusColor>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="#a6c307" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </unFocusColor>
-            </JFXTextField>
-            <Label layoutX="283.0" layoutY="14.0" text="Since">
-               <font>
-                  <Font name="Century Gothic" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
       <ImageView fitHeight="81.0" fitWidth="137.0" layoutX="73.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Basketball.png" />
@@ -76,7 +23,7 @@
             <Font name="Century Gothic" size="20.0" />
          </font>
       </Label>
-      <JFXButton layoutX="141.0" layoutY="204.0" onAction="#search" prefHeight="32.0" prefWidth="188.0" styleClass="box" text="Search">
+      <JFXButton layoutX="143.0" layoutY="236.0" onAction="#search" prefHeight="32.0" prefWidth="188.0" styleClass="box" text="Search">
          <ripplerFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -98,5 +45,54 @@
             </ImageView>
          </graphic>
       </Button>
+      <JFXTextField fx:id="txtUntil" alignment="CENTER" layoutX="256.0" layoutY="167.0">
+         <focusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#c1d016" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </focusColor>
+         <unFocusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#a6c307" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </unFocusColor>
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font>
+      </JFXTextField>
+      <Label alignment="CENTER" layoutX="307.0" layoutY="125.0" prefHeight="20.0" prefWidth="49.0" text="Until">
+         <font>
+            <Font name="Century Gothic" size="16.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtSince" alignment="CENTER" layoutX="52.0" layoutY="167.0">
+         <focusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#c1d016" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </focusColor>
+         <unFocusColor>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#a6c307" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </unFocusColor>
+      </JFXTextField>
+      <Label layoutX="104.0" layoutY="125.0" text="Since">
+         <font>
+            <Font name="Century Gothic" size="16.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
