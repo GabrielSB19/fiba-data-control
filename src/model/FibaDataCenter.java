@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class FibaDataCenter {
 
-    private ITree<Integer, Player> trees[];
+    private ITree<Integer, Player>[] trees;
 
     public FibaDataCenter(){
         trees = new ITree[5];
@@ -65,8 +65,8 @@ public class FibaDataCenter {
     }
 
     public ArrayList<Player> getPlayers(){
-        System.out.println(trees[0].inOrder().size());
-        return trees[0].inOrder();
+        System.out.println(trees[1].inOrder().size());
+        return trees[1].inOrder();
     }
     /*
     BufferedReader br = new BufferedReader(new FileReader(fileChooser()));
