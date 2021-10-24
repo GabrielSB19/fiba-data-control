@@ -6,26 +6,25 @@ import collections.bsTree.BSTree;
 import collections.rbTree.RBTree;
 import javafx.stage.FileChooser;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 public class FibaDataCenter {
 
     private ITree<Integer, Player>[] trees;
 
-    public FibaDataCenter(){
+    @SuppressWarnings("unchecked")
+    public FibaDataCenter() {
         trees = new ITree[5];
         initTree();
     }
 
     /*
-    0 - Points
-    1 - Assists
-    2 - Blocks
-    3 - Rebounds
-    4 - Steals
+     * 0 - Points 1 - Assists 2 - Blocks 3 - Rebounds 4 - Steals
      */
-    private void initTree (){
+    private void initTree() {
         trees[0] = new BSTree<>();
         trees[1] = new AVLTree<>();
         trees[2] = new AVLTree<>();
@@ -33,44 +32,58 @@ public class FibaDataCenter {
         trees[4] = new RBTree<>();
     }
 
-    private File fileChooser() {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Open data base");
-        File file = fc.showOpenDialog(null);
-        return file;
-    }
+   
 
-    public boolean importData () throws IOException {
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(fileChooser()));
-            String line = br.readLine();
-            line = br.readLine();
-            long start = System.currentTimeMillis();
-            while (line != null){
-                String parts[] = line.split(",");
-                Player py = new Player(parts[0], Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
-                addPlayer(py);
-                line = br.readLine();
-            }
-            long end = System.currentTimeMillis();
-            System.out.println(end - start);
-            return true;
-        } catch (FileNotFoundException e) {
-            return false;
+    public void filterData(int searchType) {
+        switch (searchType) {
+        case 1:
+
+            break;
+
+        case 2:
+
+            break;
+
+        case 3:
+
+            break;
+
+        case 4:
+
+            break;
+
+        case 5:
+
+            break;
+
+        default:
+            break;
         }
     }
 
-    public ArrayList<Player> getPlayers(){
-        System.out.println(trees[1].inOrder().size());
+    public int[] updateIndicators(ArrayList<Player> data) {
+        int ageAverage = 0;
+        ArrayList<String> teams = new ArrayList<>();
+        for (Player player : data) {
+            ageAverage += player.getAge();
+            if (!teams.contains(player.getTeam())) {
+                teams.add(player.getTeam());
+            }
+        }
+        ageAverage /= data.size();
+        return new int[] { data.size(), teams.size(), ageAverage };
+    }
+
+    public ArrayList<Player> getPlayers() {
         return trees[1].inOrder();
     }
 
-    public void deletePlayer(Player py){
+    public void deletePlayer(Player py) {
         trees[0].delete(py.getPoint(), py);
         trees[1].delete(py.getAssists(), py);
         trees[2].delete(py.getBlocks(), py);
         trees[3].delete(py.getBounces(), py);
-        //trees[4].add(py.getSteals(), py);
+        // trees[4].add(py.getSteals(), py);
     }
 
     public void addPlayer(Player py) {
@@ -78,6 +91,6 @@ public class FibaDataCenter {
         trees[1].add(py.getAssists(), py);
         trees[2].add(py.getBlocks(), py);
         trees[3].add(py.getBounces(), py);
-        //trees[4].add(py.getSteals(), py);
+        // trees[4].add(py.getSteals(), py);
     }
 }

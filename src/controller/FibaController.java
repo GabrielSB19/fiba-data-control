@@ -1,6 +1,15 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXProgressBar;
+import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,12 +27,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.FibaDataCenter;
 import model.Player;
 import routes.Route;
+import thread.Observer;
 
 public class FibaController {
 
@@ -81,21 +92,70 @@ public class FibaController {
     @FXML
     private TableColumn<Player, String> tblcActions;
 
+    @FXML
+    private Label lblTime;
+
+    @FXML
+    public JFXProgressBar pBar;
+
+    // Player Modal
+    @FXML
+    private JFXSlider assists;
+
+    @FXML
+    private JFXSlider blocks;
+
+    @FXML
+    private JFXSlider rebounds;
+
+    @FXML
+    private JFXSlider steals;
+
+    @FXML
+    private Label lblAssits;
+
+    @FXML
+    private Label lblBlocks;
+
+    @FXML
+    private Label lblRebounds;
+
+    @FXML
+    private Label lblSteals;
+
+    @FXML
+    private JFXTextField txtName;
+
+    @FXML
+    private JFXTextField txtTeam;
+
+    @FXML
+    private JFXTextField txtAge;
+
+    @FXML
+    private JFXTextField txtPoints;
+
+    @FXML
+    private JFXButton cancel;
+
+    @FXML
+    private JFXButton save;
+
+    @FXML
+    private JFXButton edit;
 
     private Stage modal;
     private int searchType;
 
-    private PlayerController pController;
     private FibaDataCenter pFiba;
     private Player selected;
 
     public FibaController() {
         pFiba = new FibaDataCenter();
-        pController = new PlayerController(pFiba, this);
     }
 
     @FXML
-    void handleMouseClick(MouseEvent event) {
+    public void handleMouseClick(MouseEvent event) {
         if (event.getSource() == btnCloseLogin) {
             System.exit(0);
         } else if (event.getSource() == btnMinimize) {
@@ -117,9 +177,9 @@ public class FibaController {
         }
     }
 
-    public Stage loadModal(Route route, Object controller) {
+    public Stage loadModal(Route route) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(route.getRoute()));
-        fxmlLoader.setController(controller);
+        fxmlLoader.setController(this);
         Stage stage = new Stage();
         try {
             Parent modal = fxmlLoader.load();
@@ -134,34 +194,39 @@ public class FibaController {
     }
 
     @FXML
-    void exportData(MouseEvent event) {
+    public void exportData(MouseEvent event) {
 
     }
 
+    private File fileChooser() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Open data base");
+        File file = fc.showOpenDialog(null);
+        return file;
+    }
+
     @FXML
-    void importData(MouseEvent event) throws IOException {
-        try {
-            if(pFiba.importData()){
-                System.out.println("Importado correctamente");
-            } else {
-                System.out.println("Error al importar");
-            }
-            onTablePlayers();
-        } catch (NullPointerException e){
-            System.out.println("Error al importar");
+    public void importData(MouseEvent event) throws IOException {
+        File f = fileChooser();
+        if (f != null) {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            Observer obs = new Observer(this, pFiba, br);
+            obs.init();
         }
     }
 
     @FXML
-    void newPlayer(ActionEvent event) {
-        if (pController.getModal() == null) {
-            pController.setModal(loadModal(Route.PLAYER, pController));
-            pController.getModal().show();
+    public void newPlayer(ActionEvent event) {
+        if (modal == null) {
+            modal = loadModal(Route.PLAYER);
+            edit.setVisible(false);
+            save.setVisible(true);
+            modal.show();
         }
     }
 
     @FXML
-    void cancel(ActionEvent event) {
+    public void cancel(ActionEvent event) {
         modal.close();
         modal = null;
     }
@@ -169,39 +234,49 @@ public class FibaController {
     private void initDialog(int type, String lbl) {
         searchType = type;
         if (modal == null) {
-            modal = loadModal(Route.SEARCH, this);
+            modal = loadModal(Route.SEARCH);
             modal.show();
         }
         lblDialogName.setText(lbl);
     }
 
     @FXML
-    void pointSearch(ActionEvent event) {
+    public void pointSearch(ActionEvent event) {
         initDialog(1, "Point Searching Type");
     }
 
     @FXML
-    void assistSearch(ActionEvent event) {
+    public void assistSearch(ActionEvent event) {
         initDialog(2, "Assist Searching Type");
     }
 
     @FXML
-    void blockSearch(ActionEvent event) {
+    public void blockSearch(ActionEvent event) {
         initDialog(3, "Block Searching Type");
     }
 
     @FXML
-    void reboundSearch(ActionEvent event) {
+    public void reboundSearch(ActionEvent event) {
         initDialog(4, "Rebound Searching Type");
     }
 
     @FXML
-    void stealSearh(ActionEvent event) {
+    public void stealSearh(ActionEvent event) {
         initDialog(5, "Steal Searching Type");
     }
 
-    public void onTablePlayers(){
-        ObservableList<Player> listPlayer = FXCollections.observableList(pFiba.getPlayers());
+    @FXML
+    public void search(ActionEvent event) {
+        pFiba.filterData(searchType);
+    }
+
+    public void onTablePlayers() {
+        ArrayList<Player> data = pFiba.getPlayers();
+        ObservableList<Player> listPlayer = FXCollections.observableList(data);
+        int[] indicators = pFiba.updateIndicators(data);
+        lblPlayers.setText(indicators[0] + "");
+        lblTeams.setText(indicators[1] + "");
+        lblAge.setText(indicators[2] + "");
         tblcPlayer.setCellValueFactory(new PropertyValueFactory<>("name"));
         tblcAge.setCellValueFactory(new PropertyValueFactory<>("age"));
         tblcTeam.setCellValueFactory(new PropertyValueFactory<>("team"));
@@ -229,7 +304,7 @@ public class FibaController {
                         delete.setId("delete");
                         Button edit = new Button("Edit");
                         edit.setId("edit");
-                        edit.getStylesheets().add(Route.DARK.getRoute());
+                        edit.getStylesheets().add(Route.LIGHT.getRoute());
                         delete.getStylesheets().add(Route.DARK.getRoute());
                         delete.setOnAction((ActionEvent event) -> {
                             selected = (Player) getTableRow().getItem();
@@ -237,13 +312,10 @@ public class FibaController {
                             onTablePlayers();
                         });
                         edit.setOnAction((ActionEvent event) -> {
-                            if (modal == null) {
-                                selected = (Player) getTableRow().getItem();
-                                pController.setModal(loadModal(Route.PLAYER, pController));
-                                pController.getModal().show();
-                                pController.preparePlayerEdition(selected);
-                                onTablePlayers();
-                            }
+                            selected = (Player) getTableRow().getItem();
+                            modal = loadModal(Route.PLAYER);
+                            modal.show();
+                            preparePlayerEdition();
                         });
                         HBox managebtn = new HBox(edit, delete);
                         managebtn.setStyle("-fx-alignment:center");
@@ -259,4 +331,45 @@ public class FibaController {
         tblcActions.setCellFactory(cellFact);
     }
 
+    @FXML
+    public void refresh(MouseEvent event) {
+        updateLabels();
+    }
+
+    private void updateLabels() {
+        lblAssits.setText((int) assists.getValue() + " %");
+        lblBlocks.setText((int) blocks.getValue() + " %");
+        lblRebounds.setText((int) rebounds.getValue() + " %");
+        lblSteals.setText((int) steals.getValue() + " %");
+    }
+
+    @FXML
+    public void editPlayer(ActionEvent event) {
+        pFiba.deletePlayer(selected);
+        savePlayer(event);
+    }
+
+    @FXML
+    public void savePlayer(ActionEvent event) {
+        Player py = new Player(txtName.getText(), Integer.parseInt(txtAge.getText()), txtTeam.getText(),
+                Integer.parseInt(txtPoints.getText()), (int) assists.getValue(), (int) blocks.getValue(),
+                (int) rebounds.getValue(), (int) steals.getValue());
+        pFiba.addPlayer(py);
+        onTablePlayers();
+        cancel(event);
+    }
+
+    private void preparePlayerEdition() {
+        txtName.setText(String.valueOf(selected.getName()));
+        txtAge.setText(selected.getAge() + "");
+        txtTeam.setText(selected.getTeam());
+        txtPoints.setText(selected.getPoint() + "");
+        assists.setValue(selected.getAssists());
+        blocks.setValue(selected.getBlocks());
+        rebounds.setValue(selected.getBounces());
+        steals.setValue(selected.getSteals());
+        updateLabels();
+        edit.setVisible(true);
+        save.setVisible(false);
+    }
 }

@@ -19,12 +19,12 @@
             <Font name="Century Gothic" size="18.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="141.0" fitWidth="151.0" layoutX="51.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="185.0" fitWidth="177.0" layoutX="41.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Greek_freak.png" />
          </image>
       </ImageView>
-      <Label layoutX="179.0" layoutY="224.0" text="Keys Stats">
+      <Label layoutX="179.0" layoutY="293.0" text="Keys Stats">
          <font>
             <Font name="Century Gothic" size="20.0" />
          </font>
@@ -126,12 +126,12 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Separator layoutX="50.0" layoutY="210.0" prefHeight="8.0" prefWidth="351.0" />
-      <JFXSlider fx:id="assists" blockIncrement="1.0" layoutX="76.0" layoutY="324.0" onMouseClicked="#refresh" orientation="VERTICAL" prefHeight="136.0" prefWidth="37.0" value="39.0" />
-      <JFXSlider fx:id="blocks" blockIncrement="1.0" layoutX="163.0" layoutY="324.0" onMouseClicked="#refresh" orientation="VERTICAL" prefHeight="136.0" prefWidth="37.0" value="80.0" />
-      <JFXSlider fx:id="rebounds" blockIncrement="1.0" layoutX="250.0" layoutY="324.0" onMouseClicked="#refresh" orientation="VERTICAL" prefHeight="136.0" prefWidth="37.0" value="90.0" />
-      <JFXSlider fx:id="steals" blockIncrement="1.0" layoutX="338.0" layoutY="322.0" onMouseClicked="#refresh" orientation="VERTICAL" prefHeight="136.0" prefWidth="37.0" value="100.0" />
-      <Label layoutX="74.0" layoutY="306.0" text="Assists">
+      <Separator layoutX="50.0" layoutY="279.0" prefHeight="8.0" prefWidth="351.0" />
+      <JFXSlider fx:id="assists" blockIncrement="1.0" layoutX="76.0" layoutY="356.0" onMouseClicked="#refresh" orientation="VERTICAL" prefHeight="136.0" prefWidth="37.0" value="50.0" />
+      <JFXSlider fx:id="blocks" blockIncrement="1.0" layoutX="163.0" layoutY="356.0" onMouseClicked="#refresh" orientation="VERTICAL" prefHeight="136.0" prefWidth="37.0" value="50.0" />
+      <JFXSlider fx:id="rebounds" blockIncrement="1.0" layoutX="250.0" layoutY="356.0" onMouseClicked="#refresh" orientation="VERTICAL" prefHeight="136.0" prefWidth="37.0" value="50.0" />
+      <JFXSlider fx:id="steals" blockIncrement="1.0" layoutX="338.0" layoutY="354.0" onMouseClicked="#refresh" orientation="VERTICAL" prefHeight="136.0" prefWidth="37.0" value="50.0" />
+      <Label layoutX="74.0" layoutY="338.0" text="Assists">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -145,7 +145,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label layoutX="161.0" layoutY="306.0" text="Blocks">
+      <Label layoutX="161.0" layoutY="338.0" text="Blocks">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -159,7 +159,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label layoutX="234.0" layoutY="306.0" text="Rebounds">
+      <Label layoutX="234.0" layoutY="338.0" text="Rebounds">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -173,7 +173,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label layoutX="337.0" layoutY="306.0" text="Steals">
+      <Label layoutX="337.0" layoutY="338.0" text="Steals">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -187,7 +187,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label fx:id="lblAssits" alignment="CENTER" layoutX="73.0" layoutY="460.0" prefHeight="18.0" prefWidth="42.0" text=" 39 %">
+      <Label fx:id="lblAssits" alignment="CENTER" layoutX="73.0" layoutY="492.0" prefHeight="18.0" prefWidth="42.0" text=" 50 %">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -201,7 +201,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label fx:id="lblBlocks" alignment="CENTER" layoutX="161.0" layoutY="460.0" prefHeight="18.0" prefWidth="40.0" text="80 %">
+      <Label fx:id="lblBlocks" alignment="CENTER" layoutX="161.0" layoutY="492.0" prefHeight="18.0" prefWidth="40.0" text="50 %">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -215,7 +215,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label fx:id="lblRebounds" alignment="CENTER" layoutX="247.0" layoutY="460.0" prefHeight="18.0" prefWidth="42.0" text=" 90 %">
+      <Label fx:id="lblRebounds" alignment="CENTER" layoutX="247.0" layoutY="492.0" prefHeight="18.0" prefWidth="42.0" text=" 50 %">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -229,7 +229,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label fx:id="lblSteals" alignment="CENTER" layoutX="335.0" layoutY="460.0" prefHeight="18.0" prefWidth="42.0" text="100 %">
+      <Label fx:id="lblSteals" alignment="CENTER" layoutX="335.0" layoutY="492.0" prefHeight="18.0" prefWidth="42.0" text="50 %">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -243,7 +243,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <JFXTextField fx:id="txtPoints" labelFloat="true" layoutX="159.0" layoutY="259.0" prefHeight="28.0" prefWidth="151.0" promptText="Points">
+      <JFXTextField fx:id="txtPoints" labelFloat="true" layoutX="249.0" layoutY="225.0" prefHeight="28.0" prefWidth="151.0" promptText="Points">
          <focusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -255,8 +255,8 @@
          <unFocusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
-                  <Stop color="#009e18" />
-                  <Stop color="WHITE" offset="1.0" />
+                  <Stop color="WHITE" />
+                  <Stop color="#00cd71" offset="1.0" />
                </stops>
             </LinearGradient>
          </unFocusColor>

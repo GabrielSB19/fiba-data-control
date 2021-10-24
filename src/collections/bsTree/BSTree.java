@@ -1,7 +1,6 @@
 package collections.bsTree;
 
 import collections.ITree;
-import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
             inOrder(root);
             return showV;
         } else {
-            return null;
+            return showV;
         }
     }
 
@@ -43,7 +42,7 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
         if (current == null || (key.compareTo(current.getKey()) == 0 && value.equals(current.getValue()))) {
             return current;
         }
-        if (key.compareTo(current.getKey()) < 0) {
+        if (key.compareTo(current.getKey()) <= 0) {
             return search(current.getLeft(), key, value);
         } else {
             return search(current.getRight(), key, value);
@@ -126,15 +125,6 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
             aux.setRight(newNode);
         }
         return aux;
-    }
-
-    @Override
-    public void set(K key, V newValue, V value) {
-        BSNode<K, V> node = search(key, value);
-        if (node == null) {
-            throw new IllegalArgumentException(key + " doesn't exist!");
-        }
-        node.setValue(newValue);
     }
 
     @Override

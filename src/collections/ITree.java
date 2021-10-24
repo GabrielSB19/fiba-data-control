@@ -17,8 +17,6 @@ public interface ITree<K extends Comparable<K>, V> {
 
     BSNode<K, V> add(K key, V value);
 
-    void set(K key, V newValue, V value);
-
     BSNode<K, V> delete(K key, V value);
 
 }
