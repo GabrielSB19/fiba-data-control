@@ -1,15 +1,19 @@
 package controller;
 
 import java.io.IOException;
-
+import java.util.List;
 import com.jfoenix.controls.JFXToggleButton;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -18,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.FibaDataCenter;
+import model.Player;
 import routes.Route;
 
 public class FibaController {
@@ -48,6 +53,34 @@ public class FibaController {
 
     @FXML
     private Label lblDialogName;
+
+    @FXML
+    private TableView<Player> tblPlayers;
+
+    @FXML
+    private TableColumn<String, Player> tblcPlayer;
+
+    @FXML
+    private TableColumn<Integer, Player> tblcAge;
+
+    @FXML
+    private TableColumn<String, Player> tblcTeam;
+
+    @FXML
+    private TableColumn<Integer, Player> tblcAsists;
+
+    @FXML
+    private TableColumn<Integer, Player> tblcBlocks;
+
+    @FXML
+    private TableColumn<Integer, Player> tblcRebounds;
+
+    @FXML
+    private TableColumn<Integer, Player> tblcSteals;
+
+    @FXML
+    private TableColumn<?, ?> rblcActions;
+
 
     private Stage modal;
     private int searchType;
@@ -111,6 +144,7 @@ public class FibaController {
         } else {
             System.out.println("Error al importar");
         }
+        onTablePlayers();
     }
 
     @FXML
@@ -164,5 +198,19 @@ public class FibaController {
     @FXML
     void stealSearh(ActionEvent event) {
         initDialog(5, "Steal Searching Type");
+    }
+
+    public void onTablePlayers(){
+        //List<Player> players = pFiba.getPlayers();
+        ObservableList<Player> listPlayer = FXCollections.observableList(pFiba.getPlayers());
+        tblcPlayer.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tblcAge.setCellValueFactory(new PropertyValueFactory<>("age"));
+        tblcTeam.setCellValueFactory(new PropertyValueFactory<>("team"));
+        tblcAsists.setCellValueFactory(new PropertyValueFactory<>("assists"));
+        tblcRebounds.setCellValueFactory(new PropertyValueFactory<>("bounces"));
+        tblcSteals.setCellValueFactory(new PropertyValueFactory<>("steals"));
+        tblcBlocks.setCellValueFactory(new PropertyValueFactory<>("blocks"));
+        tblPlayers.setItems(listPlayer);
+
     }
 }

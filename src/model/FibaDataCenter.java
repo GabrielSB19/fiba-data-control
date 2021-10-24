@@ -7,6 +7,7 @@ import collections.rbTree.RBTree;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class FibaDataCenter {
 
@@ -63,6 +64,10 @@ public class FibaDataCenter {
         } catch (FileNotFoundException e) {
             return false;
         }
+    }
+
+    public ArrayList<Player> getPlayers(){
+        return trees[1].inOrder();
     }
     /*
     BufferedReader br = new BufferedReader(new FileReader(fileChooser()));
