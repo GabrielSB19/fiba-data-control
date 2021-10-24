@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -201,7 +200,7 @@ public class FibaController {
     }
 
     public void onTablePlayers(){
-        //List<Player> players = pFiba.getPlayers();
+
         ObservableList<Player> listPlayer = FXCollections.observableList(pFiba.getPlayers());
         tblcPlayer.setCellValueFactory(new PropertyValueFactory<>("name"));
         tblcAge.setCellValueFactory(new PropertyValueFactory<>("age"));
