@@ -1,12 +1,24 @@
 package collections.avlTree;
 
+import collections.ITree;
 import collections.bsTree.BSNode;
 import collections.bsTree.BSTree;
 
-public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> implements IAVLTree<K, V> {
+public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 
-    @Override
-    public BSNode<K, V> leftRotate(BSNode<K, V> x) {
+    private int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+
+    private int height(AVLNode<K, V> node) {
+        return (node == null) ? 0 : node.getHeight();
+    }
+
+    private void updateHeight(AVLNode<K, V> node) {
+        node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
+    }
+
+    public BSNode<K, V> leftRotate(AVLNode<K, V> x) {
         BSNode<K, V> y = x.getRight();
 
         x.setRight(y.getLeft());
@@ -27,12 +39,11 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> implements
         updateHeight(x);
         updateHeight(y);
 
-        return (BSNode<K, V>) y;
+        return (AVLNode<K, V>) y;
     }
 
-    @Override
-    public BSNode<K, V> rightRotate(BSNode<K, V> x) {
-        BSNode<K, V> y = x.getLeft();
+    public BSNode<K, V> rightRotate(AVLNode<K, V> x) {
+        AVLNode<K, V> y = (AVLNode<K, V>) x.getLeft();
 
         x.setLeft(y.getRight());
         y.getRight().setParent(x);
@@ -52,23 +63,26 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> implements
         updateHeight(x);
         updateHeight(y);
 
-        return (BSNode<K, V>) y;
+        return (AVLNode<K, V>) y;
     }
 
     @Override
-    public void avlInsertion(K key, V value) {
-        BSNode<K,V> ancester = add(key, value);
+    public BSNode<K, V> add(K key, V value) {
+        BSNode<K,V> ancester = super.add(key, value);
+        updateHeight(ancester);
         if(ancester!=null){
             rebalance(ancester, key);
         }
+        return ancester;
     }
 
     @Override
-    public void avlDeletion(K key) {
-        BSNode<K,V> ancester = delete(key);
+    public BSNode<K, V> delete(K key) {
+        BSNode<K,V> ancester = super.delete(key);
         if(ancester!=null){
             rebalance(ancester, key);
         }
+        return ancester;
     }
 
     private int getBalanceFactor(BSNode<K, V> node) {
@@ -78,7 +92,6 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> implements
         return height(node.getRight()) - height(node.getLeft());
     }
 
-    @Override
     public void rebalance(BSNode<K, V> node, K key) {
         int balance = getBalanceFactor(node);
 

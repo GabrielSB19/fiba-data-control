@@ -1,6 +1,9 @@
 package collections.rbTree;
 
-/*public class RBTree<K extends Comparable<K>, V> implements IRBTree<K,V> {
+import collections.bsTree.BSNode;
+import collections.bsTree.BSTree;
+
+public class RBTree<K extends Comparable<K>, V> extends BSTree<K,V>  {
 
 	private static final boolean RED = true;
 	private static final boolean BLACK = false;
@@ -56,15 +59,15 @@ package collections.rbTree;
 	}
 
 	// Agrega un nuevo elemento (clave, valor) al árbol
-	public void add(K key, V value) {
-		root = add(root, key, value);
+	public void s (K key, V value) {
+		root = addI(root, key, value);
 		root.setColor(BLACK);// Mantenga el nodo raíz en negro después de agregar
 	}
 
 	// Insertar elementos (clave, valor) en el árbol rojo-negro enraizado en el
 	// nodo, algoritmo recursivo
 	// Devuelve la raíz del árbol rojo-negro después de insertar un nuevo nodo
-	private RBNode<K, V> add(RBNode<K, V> node, K key, V value) {
+	private RBNode<K, V> addI(RBNode<K, V> node, K key, V value) {
 
 		if (node == null) {
 			size++;
@@ -158,4 +161,46 @@ package collections.rbTree;
 			return successor;
 		}
 	}
-}*/
+
+	
+
+	@Override
+	public void rbInsertion(K key, V value) {
+		BSNode<K,V> newNode = new RBNode<K,V>(key, value);
+		super.add(newNode);
+		
+	}
+
+	private void insertFixUp(RBNode<K,V> z){
+		while (((RBNode<K, V>) z.getParent()).getColor()) {
+			RBNode<K,V> uncle = null;
+			RBNode<K,V> parent = (RBNode<K, V>) z.getParent();
+			RBNode<K,V> grandParent = (RBNode<K, V>) z.getParent().getParent();
+			if(parent.equals(grandParent.getLeft())){
+				uncle = (RBNode<K, V>) z.getParent().getParent().getRight();
+				if(uncle.getColor()){
+					uncle.setColor(BLACK);
+					parent.setColor(BLACK);
+					grandParent.setColor(RED);
+					z = grandParent;
+				}else if(z.equals(parent.getRight())){
+					z = parent;
+					leftRotate(z);
+				}else{
+					parent.setColor(BLACK);
+					grandParent.setColor(RED);
+					rightRotate(grandParent);
+				}
+			}else{
+
+			}
+			
+		}
+	}
+
+	@Override
+	public void rbDeletion(K key) {
+		// TODO Auto-generated method stub
+		
+	}
+}

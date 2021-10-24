@@ -1,6 +1,8 @@
 package collections.bsTree;
 
-public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
+import collections.ITree;
+
+public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
 
     protected BSNode<K, V> root;
     protected String msg = "";
@@ -93,54 +95,46 @@ public class BSTree<K extends Comparable<K>, V> implements IBSTree<K, V> {
     public BSNode<K, V> add(K key, V value) {
         if (value != null) {
             BSNode<K, V> newNode = new BSNode<>(key, value);
-            BSNode<K, V> aux = null;
-            BSNode<K, V> temp = root;
-
-            while (temp != null) {
-                // Ancestor
-                aux = temp;
-                if (newNode.getKey().compareTo(temp.getKey()) <= 0) {
-                    temp = temp.getLeft();
-                } else {
-                    temp = temp.getRight();
-                }
-            }
-            newNode.setParent(aux);
-            if (aux == null) {
-                root = newNode;
-            } else if (newNode.getKey().compareTo(aux.getKey()) < 0) {
-                aux.setLeft(newNode);
-                updateHeight(aux);
-            } else {
-                aux.setRight(newNode);
-                updateHeight(aux);
-            }
-            return aux;
+            return add(newNode);
         } else {
             return null;
         }
     }
 
-    private int max(int a, int b) {
-        return (a > b) ? a : b;
+    protected BSNode<K, V> add(BSNode<K, V> newNode) {
+        BSNode<K, V> aux = null;
+        BSNode<K, V> temp = root;
+
+        while (temp != null) {
+            // Ancestor
+            aux = temp;
+            if (newNode.getKey().compareTo(temp.getKey()) <= 0) {
+                temp = temp.getLeft();
+            } else {
+                temp = temp.getRight();
+            }
+        }
+        newNode.setParent(aux);
+        if (aux == null) {
+            root = newNode;
+        } else if (newNode.getKey().compareTo(aux.getKey()) < 0) {
+            aux.setLeft(newNode);
+        } else {
+            aux.setRight(newNode);
+        }
+        return aux;
     }
 
-    protected int height(BSNode<K, V> node) {
-        return (node == null) ? 0 : node.getHeight();
-    }
-
-    protected void updateHeight(BSNode<K, V> node) {
-        node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
-    }
+  
 
     @Override
     public void set(K key, V newValue) {
-		BSNode<K, V> node = search(key);
-		if (node == null) {
-			throw new IllegalArgumentException(key + " doesn't exist!");
-		}
-		node.setValue(newValue);
-	}
+        BSNode<K, V> node = search(key);
+        if (node == null) {
+            throw new IllegalArgumentException(key + " doesn't exist!");
+        }
+        node.setValue(newValue);
+    }
 
     @Override
     public BSNode<K, V> delete(K key) {

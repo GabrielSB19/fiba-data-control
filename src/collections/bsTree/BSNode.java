@@ -4,7 +4,6 @@ public class BSNode<K, V> {
 
     private K key;
     private V value;
-    private int height;
     private BSNode<K, V> parent;
     private BSNode<K, V> right;
     private BSNode<K, V> left;
@@ -12,7 +11,6 @@ public class BSNode<K, V> {
     public BSNode(K key, V value) {
         this.key = key;
         this.value = value;
-        height = 1;
     }
 
     public K getKey() {
@@ -29,14 +27,6 @@ public class BSNode<K, V> {
 
     public void setValue(V value) {
         this.value = value;
-    }
-
-    public int getHeight() {
-        return this.height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public BSNode<K, V> getParent() {

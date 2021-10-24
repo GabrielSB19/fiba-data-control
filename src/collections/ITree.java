@@ -1,6 +1,8 @@
-package collections.bsTree;
+package collections;
 
-public interface IBSTree<K extends Comparable<K>, V> {
+import collections.bsTree.BSNode;
+
+public interface ITree<K extends Comparable<K>, V> {
     String inOrder();
 
     BSNode<K, V> search(K key);
