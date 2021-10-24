@@ -2,26 +2,28 @@ package collections.bsTree;
 
 import collections.ITree;
 
+import java.util.ArrayList;
+
 public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
 
     protected BSNode<K, V> root;
-    protected String msg = "";
+    protected ArrayList<V> showV;
 
     @Override
-    public String inOrder() {
-        msg = "";
+    public ArrayList<V> inOrder() {
+        showV = new ArrayList<>();
         if (root != null) {
             inOrder(root);
-            return msg;
+            return showV;
         } else {
-            return " ";
+            return null;
         }
     }
 
     protected void inOrder(BSNode<K, V> current) {
         if (current != null) {
             inOrder(current.getLeft());
-            msg += " " + current.getKey();
+            showV.add(current.getValue());
             inOrder(current.getRight());
         }
 

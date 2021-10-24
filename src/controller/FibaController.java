@@ -17,6 +17,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.FibaDataCenter;
 import routes.Route;
 
 public class FibaController {
@@ -52,9 +53,11 @@ public class FibaController {
     private int searchType;
 
     private PlayerController pController;
+    private FibaDataCenter pFiba;
 
     public FibaController() {
         pController = new PlayerController();
+        pFiba = new FibaDataCenter();
     }
 
     @FXML
@@ -102,8 +105,12 @@ public class FibaController {
     }
 
     @FXML
-    void importData(MouseEvent event) {
-
+    void importData(MouseEvent event) throws IOException {
+        if(pFiba.importData()){
+            System.out.println("Importado correctamente");
+        } else {
+            System.out.println("Error al importar");
+        }
     }
 
     @FXML

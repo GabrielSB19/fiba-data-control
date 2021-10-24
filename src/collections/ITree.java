@@ -2,8 +2,10 @@ package collections;
 
 import collections.bsTree.BSNode;
 
+import java.util.ArrayList;
+
 public interface ITree<K extends Comparable<K>, V> {
-    String inOrder();
+    ArrayList<V> inOrder();
 
     BSNode<K, V> search(K key);
 

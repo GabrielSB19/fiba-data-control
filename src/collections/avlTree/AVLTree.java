@@ -68,9 +68,10 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 
     @Override
     public AVLNode<K, V> add(K key, V value) {
-        AVLNode<K, V> ancester = (AVLNode<K, V>) super.add(key, value);
-        updateHeight(ancester);
+        AVLNode<K, V> newNode = new AVLNode<>(key, value);
+        AVLNode<K, V> ancester = (AVLNode<K, V>) super.add(newNode);
         if (ancester != null) {
+            updateHeight(ancester);
             rebalance(ancester, key);
         }
         return ancester;

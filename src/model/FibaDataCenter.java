@@ -42,14 +42,23 @@ public class FibaDataCenter {
     public boolean importData () throws IOException {
         try{
             BufferedReader br = new BufferedReader(new FileReader(fileChooser()));
-            String line;
+            String line = br.readLine();
             line = br.readLine();
+            long start = System.currentTimeMillis();
+            int count = 0;
             while (line != null){
                 String parts[] = line.split(",");
-                System.out.println(parts.length);
-                //Player py = new Player(parts[0], parts[1], parts[2], parts[3], parts[4]);
-                //trees[0].add(parts[4], )
+                Player py = new Player(parts[0], Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]), Integer.parseInt(parts[4]),
+                        Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
+                trees[0].add(py.getPoint(), py);
+                trees[1].add(py.getAssists(), py);
+                trees[2].add(py.getBlocks(), py);
+                trees[3].add(py.getBounces(), py);
+                //trees[4].add(py.getSteals(), py);
+                line = br.readLine();
             }
+            long end = System.currentTimeMillis();
+            System.out.println(end - start);
             return true;
         } catch (FileNotFoundException e) {
             return false;
