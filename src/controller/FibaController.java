@@ -38,6 +38,7 @@ import thread.Observer;
 
 public class FibaController {
 
+    // Screen Control
     @FXML
     private Pane mainPane;
 
@@ -50,6 +51,7 @@ public class FibaController {
     @FXML
     private JFXToggleButton palette;
 
+    // MainPane Components
     @FXML
     private Text lblPlayers;
 
@@ -58,9 +60,6 @@ public class FibaController {
 
     @FXML
     private Text lblAge;
-
-    @FXML
-    private Label lblDialogName;
 
     @FXML
     private TableView<Player> tblPlayers;
@@ -144,6 +143,10 @@ public class FibaController {
     @FXML
     private JFXButton edit;
 
+    // Search Modal
+    @FXML
+    private Label lblDialogName;
+
     @FXML
     private JFXTextField txtUntil;
 
@@ -152,12 +155,11 @@ public class FibaController {
 
     private Stage modal;
     private int searchType;
-
     private FibaDataCenter pFiba;
     private Player selected;
 
-    public FibaController() {
-        pFiba = new FibaDataCenter();
+    public FibaController(FibaDataCenter pFiba) {
+        this.pFiba = pFiba;
     }
 
     @FXML
@@ -183,7 +185,7 @@ public class FibaController {
         }
     }
 
-    public Stage loadModal(Route route) {
+    private Stage loadModal(Route route) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(route.getRoute()));
         fxmlLoader.setController(this);
         Stage stage = new Stage();
@@ -273,12 +275,27 @@ public class FibaController {
 
     @FXML
     public void search(ActionEvent event) {
-        pFiba.filterData(searchType, Integer.parseInt(txtSince.getText()), Integer.parseInt(txtUntil.getText()));
-        onTablePlayers(2);
+        try {       
+            int since = Integer.parseInt(txtSince.getText());
+            int until = Integer.parseInt(txtUntil.getText());
+            if((searchType != 1 && until<=100)||(searchType == 1 && until<=1000)){
+                if (since <= until) {
+                    long start = System.currentTimeMillis();
+                    onTablePlayers(pFiba.filterData(searchType, since, until));
+                    long end = System.currentTimeMillis();
+                    lblTime.setText(end-start+" MilliSeconds");
+                    cancel(event);
+                }
+            }           
+        } catch (NumberFormatException e) {
+            System.out.println("Only numbers are allowed");
+        }
     }
 
-    public void onTablePlayers(int type) {
-        ArrayList<Player> data = pFiba.getPlayers(type);
+    public void onTablePlayers(ArrayList<Player> data) {
+        if (data == null) {
+            data = pFiba.getPlayers();
+        }
         ObservableList<Player> listPlayer = FXCollections.observableList(data);
         int[] indicators = pFiba.updateIndicators(data);
         lblPlayers.setText(indicators[0] + "");
@@ -316,7 +333,7 @@ public class FibaController {
                         delete.setOnAction((ActionEvent event) -> {
                             selected = (Player) getTableRow().getItem();
                             pFiba.deletePlayer(selected);
-                            onTablePlayers(1);
+                            onTablePlayers(null);
                         });
                         edit.setOnAction((ActionEvent event) -> {
                             selected = (Player) getTableRow().getItem();
@@ -350,20 +367,39 @@ public class FibaController {
         lblSteals.setText((int) steals.getValue() + " %");
     }
 
+    private boolean validateFileds() {
+        if (txtName.getText().equals("") || txtAge.getText().equals("") || txtTeam.getText().equals("")
+                || txtPoints.getText().equals("")) {
+            try {
+                Integer.parseInt(txtPoints.getText());
+            } catch (Exception e) {
+                System.out.println("Only numbers in point TextField");
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @FXML
     public void editPlayer(ActionEvent event) {
-        pFiba.deletePlayer(selected);
-        savePlayer(event);
+        if (validateFileds()) {
+            pFiba.deletePlayer(selected);
+            savePlayer(event);
+        }
     }
 
     @FXML
     public void savePlayer(ActionEvent event) {
-        Player py = new Player(txtName.getText(), Integer.parseInt(txtAge.getText()), txtTeam.getText(),
-                Integer.parseInt(txtPoints.getText()), (int) assists.getValue(), (int) blocks.getValue(),
-                (int) rebounds.getValue(), (int) steals.getValue());
-        pFiba.addPlayer(py);
-        onTablePlayers(1);
-        cancel(event);
+        if (validateFileds()) {
+            Player py = new Player(txtName.getText(), Integer.parseInt(txtAge.getText()), txtTeam.getText(),
+                    Integer.parseInt(txtPoints.getText()), (int) assists.getValue(), (int) blocks.getValue(),
+                    (int) rebounds.getValue(), (int) steals.getValue());
+            pFiba.addPlayer(py);
+            onTablePlayers(null);
+            lblTime.setText("");
+            cancel(event);
+        }
     }
 
     private void preparePlayerEdition() {

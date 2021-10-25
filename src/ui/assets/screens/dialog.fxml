@@ -45,12 +45,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <JFXTextField fx:id="txtUntil" alignment="CENTER" layoutX="256.0" layoutY="167.0">
+      <JFXTextField fx:id="txtUntil" alignment="CENTER" labelFloat="true" layoutX="256.0" layoutY="167.0" promptText="Upper Bound">
          <focusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop color="#c1d016" />
-                  <Stop color="WHITE" offset="1.0" />
+                  <Stop color="#5f05eb" offset="1.0" />
                </stops>
             </LinearGradient>
          </focusColor>
@@ -66,17 +66,17 @@
             <Font name="Century Gothic" size="13.0" />
          </font>
       </JFXTextField>
-      <Label alignment="CENTER" layoutX="307.0" layoutY="125.0" prefHeight="20.0" prefWidth="49.0" text="Until">
+      <Label alignment="CENTER" layoutX="256.0" layoutY="125.0" prefHeight="20.0" prefWidth="49.0" text="Until:">
          <font>
             <Font name="Century Gothic" size="16.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtSince" alignment="CENTER" layoutX="52.0" layoutY="167.0">
+      <JFXTextField fx:id="txtSince" alignment="CENTER" layoutX="52.0" layoutY="167.0" promptText="Lower Bound">
          <focusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop color="#c1d016" />
-                  <Stop color="WHITE" offset="1.0" />
+                  <Stop color="#2c0cdd" offset="1.0" />
                </stops>
             </LinearGradient>
          </focusColor>
@@ -88,8 +88,11 @@
                </stops>
             </LinearGradient>
          </unFocusColor>
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font>
       </JFXTextField>
-      <Label layoutX="104.0" layoutY="125.0" text="Since">
+      <Label layoutX="52.0" layoutY="125.0" text="Since:">
          <font>
             <Font name="Century Gothic" size="16.0" />
          </font>

@@ -7,26 +7,25 @@ import java.util.ArrayList;
 public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
 
     protected BSNode<K, V> root;
-    protected ArrayList<V> showV;
+    protected ArrayList<V> values;
 
     @Override
     public ArrayList<V> inOrder() {
-        showV = new ArrayList<>();
+        values = new ArrayList<>();
         if (root != null) {
             inOrder(root);
-            return showV;
+            return values;
         } else {
-            return showV;
+            return values;
         }
     }
 
     protected void inOrder(BSNode<K, V> current) {
         if (current != null) {
             inOrder(current.getLeft());
-            showV.add(current.getValue());
+            values.add(current.getValue());
             inOrder(current.getRight());
         }
-
     }
 
     @Override
@@ -38,39 +37,34 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
         }
     }
 
-    @Override
-    public void filter(ArrayList<V> data, K key) {
-        if (root != null) {
-             filter(data, search(root, key), key);
-        }
-    }
-
-    public void filter(ArrayList<V> data, BSNode<K, V> current, K key) {
-        if (current != null && current.getKey().compareTo(key) == 0 ) {
-            data.add(current.getValue());
-            filter(data, current.getLeft(), key);
-        }
-    }
-
-    protected BSNode<K, V> search(BSNode<K, V> current, K key) {
-        if (current == null || (key.compareTo(current.getKey()) == 0)) {
-            return current;
-        }
-        if (key.compareTo(current.getKey()) <= 0) {
-            return search(current.getLeft(), key);
-        } else {
-            return search(current.getRight(), key);
-        }
-    }
-
     protected BSNode<K, V> search(BSNode<K, V> current, K key, V value) {
-        if (current == null || (key.compareTo(current.getKey()) == 0 && value.equals(current.getValue()))) {
-            return current;
+        if (value != null) {
+            if (current == null || (key.compareTo(current.getKey()) == 0 && value.equals(current.getValue()))) {
+                return current;
+            }
+        } else {
+            if (current == null || (key.compareTo(current.getKey()) == 0)) {
+                return current;
+            }
         }
         if (key.compareTo(current.getKey()) <= 0) {
             return search(current.getLeft(), key, value);
         } else {
             return search(current.getRight(), key, value);
+        }
+    }
+
+    @Override
+    public void filter(ArrayList<V> data, K key) {
+        if (root != null) {
+            filter(data, search(root, key, null), key);
+        }
+    }
+
+    protected void filter(ArrayList<V> data, BSNode<K, V> current, K key) {
+        if (current != null && current.getKey().compareTo(key) == 0) {
+            data.add(current.getValue());
+            filter(data, current.getLeft(), key);
         }
     }
 

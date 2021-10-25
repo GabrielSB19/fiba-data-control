@@ -8,8 +8,7 @@ public class RBNode<K,V> extends BSNode<K,V>{
 
     public RBNode(K key, V value) {
         super(key, value);
-        color = true;// El nuevo nodo predeterminado es rojo, es decir, el rojo representa el nodo
-                    // que debe fusionarse
+        color = true;
     }
 
     public boolean getColor() {

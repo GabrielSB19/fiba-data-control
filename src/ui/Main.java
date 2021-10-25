@@ -13,6 +13,7 @@ import com.sun.javafx.application.LauncherImpl;
 import controller.FibaController;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.FibaDataCenter;
 import routes.Route;
 
 public class Main extends Application {
@@ -20,7 +21,7 @@ public class Main extends Application {
     private FibaController fibaController;
 
     public Main() {
-        fibaController = new FibaController();
+        fibaController = new FibaController(new FibaDataCenter());
     }
 
     public static void main(String[] args) {

@@ -19,10 +19,10 @@ public class Observable extends Thread {
     }
 
     public void importData() {
+        listener.onInit();
         try {
             String line = br.readLine();
             line = br.readLine();
-            long start = System.currentTimeMillis();
             while (line != null) {
                 String parts[] = line.split(",");
                 Player py = new Player(parts[0], Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]),
@@ -31,18 +31,15 @@ public class Observable extends Thread {
                 fDataCenter.addPlayer(py);
                 line = br.readLine();
             }
-            long end = System.currentTimeMillis();
-            System.out.println(end - start);
             br.close();
-            listener.onFinish();
         } catch (Exception e) {
-            System.out.println("Error al importar");
+            System.out.println("Import Error");
         }
+        listener.onFinish();
     }
 
     @Override
-    public void run() {
-        listener.onInit();
+    public void run() {   
         importData();
     }
 

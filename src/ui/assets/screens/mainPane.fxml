@@ -94,7 +94,7 @@
                         <Font name="Century Gothic" size="13.0" />
                      </font>
                   </Label>
-                  <Text fx:id="lblPlayers" fill="#545454" layoutX="207.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="138.2763671875">
+                  <Text fx:id="lblPlayers" fill="#545454" layoutX="206.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="140.2763671875">
                      <font>
                         <Font name="Century Gothic" size="42.0" />
                      </font>

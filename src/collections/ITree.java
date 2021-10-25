@@ -9,7 +9,7 @@ public interface ITree<K extends Comparable<K>, V> {
 
     BSNode<K, V> search(K key, V value);
 
-    void filter(ArrayList<V> data, K key);
+    void filter(ArrayList<V> filter, K key);
 
     K minimum(K key, V value);
 
