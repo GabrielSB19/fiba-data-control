@@ -62,20 +62,20 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     protected void filter(ArrayList<V> data, BSNode<K, V> current, K key) {
-        if (current != null && current.getKey().compareTo(key) == 0) {
+        while (current != null && current.getKey().compareTo(key) == 0) {
             data.add(current.getValue());
-            filter(data, current.getLeft(), key);
+            current = current.getLeft();
         }
     }
 
     @Override
-    public K minimum(K key, V value) {
+    public BSNode<K, V> minimum(K key, V value) {
         BSNode<K, V> temp = search(key, value);
         if (temp != null) {
             while (temp.getLeft() != null) {
                 temp = temp.getLeft();
             }
-            return temp.getKey();
+            return temp;
         } else {
             return null;
         }
@@ -95,18 +95,18 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     @Override
-    public K sucessor(K key, V value) {
+    public BSNode<K, V> sucessor(K key, V value) {
         BSNode<K, V> temp = search(key, value);
         if (temp != null) {
             if (temp.getRight() != null) {
                 return minimum(temp.getRight().getKey(), temp.getRight().getValue());
             }
             BSNode<K, V> parent = temp.getParent();
-            while (parent != null && temp == parent.getRight()) {
+            while (parent != null && temp.equals(parent.getRight())) {
                 temp = parent;
                 parent = parent.getParent();
             }
-            return (parent == null) ? null : parent.getKey();
+            return (parent == null) ? null : parent;
         } else {
             return null;
         }
@@ -155,7 +155,7 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
             if (toDelete.getLeft() == null || toDelete.getRight() == null) {
                 y = toDelete;
             } else {
-                y = search(sucessor(key, value), value);
+                y = sucessor(key, value);
             }
             if (y.getLeft() != null) {
                 x = y.getLeft();

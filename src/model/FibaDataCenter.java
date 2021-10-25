@@ -67,7 +67,7 @@ public class FibaDataCenter {
     }
 
     public ArrayList<Player> getPlayers() {
-            return trees[1].inOrder();
+            return trees[0].inOrder();
     }
 
   

@@ -372,6 +372,7 @@ public class FibaController {
                 || txtPoints.getText().equals("")) {
             try {
                 Integer.parseInt(txtPoints.getText());
+                Integer.parseInt(txtAge.getText());
             } catch (Exception e) {
                 System.out.println("Only numbers in point TextField");
             }

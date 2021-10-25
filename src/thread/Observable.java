@@ -26,8 +26,8 @@ public class Observable extends Thread {
             while (line != null) {
                 String parts[] = line.split(",");
                 Player py = new Player(parts[0], Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]),
-                        Integer.parseInt(parts[4]), Integer.parseInt(parts[5]), Integer.parseInt(parts[6]),
-                        Integer.parseInt(parts[7]));
+                        Integer.parseInt(parts[5]), Integer.parseInt(parts[7]), Integer.parseInt(parts[4]),
+                        Integer.parseInt(parts[6]));
                 fDataCenter.addPlayer(py);
                 line = br.readLine();
             }

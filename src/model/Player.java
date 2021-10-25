@@ -10,7 +10,7 @@ public class Player {
     private int steals;
     private int blocks;
 
-    public Player(String name, int age, String team, int point, int bounces, int assists, int steals, int blocks) {
+    public Player(String name, int age, String team, int point, int assists, int blocks, int bounces, int steals) {
         this.name = name;
         this.age = age;
         this.team = team;
