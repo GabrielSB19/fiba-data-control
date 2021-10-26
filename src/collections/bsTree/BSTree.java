@@ -62,23 +62,23 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     protected void filter(ArrayList<V> data, BSNode<K, V> current, K key) {
-            if(current != null){
-                filter(data, current.getLeft(), key);
-                if(current.getKey().compareTo(key) == 0){
-                    data.add(current.getValue());
-                }         
-                filter(data, current.getRight(), key);
+        if (current != null) {
+            filter(data, current.getLeft(), key);
+            if (current.getKey().compareTo(key) == 0) {
+                data.add(current.getValue());
             }
+            filter(data, current.getRight(), key);
+        }
     }
 
     @Override
     public BSNode<K, V> sucessor(BSNode<K, V> current) {
-        BSNode<K,V> successor = current;
-		while(current.getLeft()!=null){
-			successor = current.getLeft();
-			current = current.getLeft();
-		}
-		return successor;
+        BSNode<K, V> successor = current;
+        while (current.getLeft() != null) {
+            successor = current.getLeft();
+            current = current.getLeft();
+        }
+        return successor;
     }
 
     @Override
@@ -149,7 +149,6 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
             }
             return null;
         } else {
-            System.out.println("w");
             return null;
         }
     }

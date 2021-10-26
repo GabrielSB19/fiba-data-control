@@ -295,12 +295,12 @@ public class FibaController {
     public void onTablePlayers(ArrayList<Player> data) {
         if (data == null) {
             data = pFiba.getPlayers();
+            int[] indicators = pFiba.updateIndicators(data);
+            lblPlayers.setText(indicators[0] + "");
+            lblTeams.setText(indicators[1] + "");
+            lblAge.setText(indicators[2] + "");
         }
         ObservableList<Player> listPlayer = FXCollections.observableList(data);
-        int[] indicators = pFiba.updateIndicators(data);
-        lblPlayers.setText(indicators[0] + "");
-        lblTeams.setText(indicators[1] + "");
-        lblAge.setText(indicators[2] + "");
         tblcPlayer.setCellValueFactory(new PropertyValueFactory<>("name"));
         tblcAge.setCellValueFactory(new PropertyValueFactory<>("age"));
         tblcTeam.setCellValueFactory(new PropertyValueFactory<>("team"));

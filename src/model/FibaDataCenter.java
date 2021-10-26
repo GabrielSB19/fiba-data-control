@@ -32,7 +32,7 @@ public class FibaDataCenter {
         trees[1].delete(py.getAssists(), py);
         trees[2].delete(py.getBlocks(), py);
         trees[3].delete(py.getBounces(), py);
-        //trees[4].delete(py.getSteals(), py);
+        // trees[4].delete(py.getSteals(), py);
     }
 
     public void addPlayer(Player py) {
@@ -67,7 +67,7 @@ public class FibaDataCenter {
     }
 
     public ArrayList<Player> getPlayers() {
-        return trees[1].inOrder();
+        return trees[0].inOrder();
     }
 
 }

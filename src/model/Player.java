@@ -84,4 +84,5 @@ public class Player {
     public void setBlocks(int blocks) {
         this.blocks = blocks;
     }
+
 }
