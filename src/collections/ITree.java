@@ -11,11 +11,7 @@ public interface ITree<K extends Comparable<K>, V> {
 
     void filter(ArrayList<V> filter, K key);
 
-    BSNode<K, V> minimum(K key, V value);
-
-    K maximum(K key, V value);
-
-    BSNode<K, V> sucessor(K key, V value);
+    BSNode<K, V> sucessor(BSNode<K, V> node);
 
     BSNode<K, V> add(K key, V value);
 

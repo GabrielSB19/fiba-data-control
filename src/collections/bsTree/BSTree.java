@@ -72,50 +72,13 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     @Override
-    public BSNode<K, V> minimum(K key, V value) {
-        BSNode<K, V> temp = search(key, value);
-        if (temp != null) {
-            while (temp != null) {
-                temp = temp.getLeft();
-            }
-            return temp;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public K maximum(K key, V value) {
-        BSNode<K, V> temp = search(key, value);
-        if (temp != null) {
-            while (temp != null) {
-                temp = temp.getRight();
-            }
-            return temp.getKey();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public BSNode<K, V> sucessor(K key, V value) {
-        BSNode<K, V> temp = search(key, value);
-        if (temp != null) {
-            if (temp.getRight() != null) {
-                System.out.println("f");
-                return minimum(temp.getRight().getKey(), temp.getRight().getValue());
-            }
-            BSNode<K, V> parent = temp.getParent();
-            while (parent != null && temp.equals(parent.getRight())) {
-                temp = parent;
-                System.out.println("i");
-                parent = parent.getParent();
-            }
-            return (parent == null) ? null : parent;
-        } else {
-            System.out.println("w");
-            return null;
-        }
+    public BSNode<K, V> sucessor(BSNode<K, V> current) {
+        BSNode<K,V> successor = current;
+		while(current.getLeft()!=null){
+			successor = current.getLeft();
+			current = current.getLeft();
+		}
+		return successor;
     }
 
     @Override
@@ -161,7 +124,7 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
             if (toDelete.getLeft() == null || toDelete.getRight() == null) {
                 y = toDelete;
             } else {
-                y = sucessor(key, value);
+                y = sucessor(toDelete.getRight());
             }
             if (y.getLeft() != null) {
                 x = y.getLeft();
@@ -186,6 +149,7 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
             }
             return null;
         } else {
+            System.out.println("w");
             return null;
         }
     }
