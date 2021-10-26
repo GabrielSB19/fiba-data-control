@@ -85,4 +85,9 @@ public class Player {
         this.blocks = blocks;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }
