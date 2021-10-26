@@ -37,6 +37,17 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
         }
     }
 
+    protected BSNode<K, V> search(BSNode<K, V> current, K key) {
+        if (current == null || (key.compareTo(current.getKey()) == 0)) {
+            return current;
+        }
+        if (key.compareTo(current.getKey()) <= 0) {
+            return search(current.getLeft(), key);
+        } else {
+            return search(current.getRight(), key);
+        }
+    }
+
     protected BSNode<K, V> search(BSNode<K, V> current, K key, V value) {
         if (value != null) {
             if (current == null || (key.compareTo(current.getKey()) == 0 && value.equals(current.getValue()))) {
