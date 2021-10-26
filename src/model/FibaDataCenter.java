@@ -32,7 +32,7 @@ public class FibaDataCenter {
         trees[1].delete(py.getAssists(), py);
         trees[2].delete(py.getBlocks(), py);
         trees[3].delete(py.getBounces(), py);
-        trees[4].delete(py.getSteals(), py);
+        //trees[4].delete(py.getSteals(), py);
     }
 
     public void addPlayer(Player py) {
@@ -40,7 +40,7 @@ public class FibaDataCenter {
         trees[1].add(py.getAssists(), py);
         trees[2].add(py.getBlocks(), py);
         trees[3].add(py.getBounces(), py);
-        trees[4].add(py.getSteals(), py);
+        // trees[4].add(py.getSteals(), py);
     }
 
     public ArrayList<Player> filterData(int searchType, int since, int until) {
@@ -60,15 +60,14 @@ public class FibaDataCenter {
                 teams.add(player.getTeam());
             }
         }
-        if(data.size()!=0){
+        if (data.size() != 0) {
             ageAverage /= data.size();
         }
         return new int[] { data.size(), teams.size(), ageAverage };
     }
 
     public ArrayList<Player> getPlayers() {
-            return trees[0].inOrder();
+        return trees[0].inOrder();
     }
 
-  
 }

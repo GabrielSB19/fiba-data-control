@@ -62,21 +62,20 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     protected void filter(ArrayList<V> data, BSNode<K, V> current, K key) {
-        while (current != null) {
-            if(current.getKey().compareTo(key) == 0){
-                data.add(current.getValue());
-                current = current.getLeft();
-            }else{
-                current = current.getRight();
+            if(current != null){
+                filter(data, current.getLeft(), key);
+                if(current.getKey().compareTo(key) == 0){
+                    data.add(current.getValue());
+                }         
+                filter(data, current.getRight(), key);
             }
-        }
     }
 
     @Override
     public BSNode<K, V> minimum(K key, V value) {
         BSNode<K, V> temp = search(key, value);
         if (temp != null) {
-            while (temp.getLeft() != null) {
+            while (temp != null) {
                 temp = temp.getLeft();
             }
             return temp;
@@ -89,7 +88,7 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     public K maximum(K key, V value) {
         BSNode<K, V> temp = search(key, value);
         if (temp != null) {
-            while (temp.getRight() != null) {
+            while (temp != null) {
                 temp = temp.getRight();
             }
             return temp.getKey();
@@ -103,15 +102,18 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
         BSNode<K, V> temp = search(key, value);
         if (temp != null) {
             if (temp.getRight() != null) {
+                System.out.println("f");
                 return minimum(temp.getRight().getKey(), temp.getRight().getValue());
             }
             BSNode<K, V> parent = temp.getParent();
             while (parent != null && temp.equals(parent.getRight())) {
                 temp = parent;
+                System.out.println("i");
                 parent = parent.getParent();
             }
             return (parent == null) ? null : parent;
         } else {
+            System.out.println("w");
             return null;
         }
     }

@@ -8,7 +8,7 @@ public class AVLNode<K, V> extends BSNode<K, V> {
 
     public AVLNode(K key, V value) {
         super(key, value);
-        height = 0;
+        height = 1;
     }
 
     public int getHeight() {

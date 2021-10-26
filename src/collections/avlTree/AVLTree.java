@@ -18,11 +18,13 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
         node.setHeight(1 + max(height(castL), height(castR)));
     }
 
-    public AVLNode<K, V> leftRotate(AVLNode<K, V> x) {
+    public void leftRotate(AVLNode<K, V> x) {
         AVLNode<K, V> y = (AVLNode<K, V>) x.getRight();
 
+        if (y.getLeft() != null) {
+            y.getLeft().setParent(x);
+        }
         x.setRight(y.getLeft());
-        y.getLeft().setParent(x);
         y.setParent(x.getParent());
 
         if (x.getParent() == null) {
@@ -39,14 +41,15 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
         updateHeight(x);
         updateHeight(y);
 
-        return y;
     }
 
-    public AVLNode<K, V> rightRotate(AVLNode<K, V> x) {
+    public void rightRotate(AVLNode<K, V> x) {
         AVLNode<K, V> y = (AVLNode<K, V>) x.getLeft();
 
+        if (y.getRight() != null) {
+            y.getRight().setParent(x);
+        }
         x.setLeft(y.getRight());
-        y.getRight().setParent(x);
         y.setParent(x.getParent());
 
         if (x.getParent() == null) {
@@ -63,15 +66,13 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
         updateHeight(x);
         updateHeight(y);
 
-        return y;
     }
 
     @Override
     public AVLNode<K, V> add(K key, V value) {
         AVLNode<K, V> newNode = new AVLNode<>(key, value);
         AVLNode<K, V> ancester = (AVLNode<K, V>) super.add(newNode);
-        if (ancester != null) {
-            updateHeight(ancester);
+        if (ancester != null) {         
             rebalance(ancester, key);
         }
         return ancester;
@@ -93,31 +94,39 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
         AVLNode<K, V> castL = (AVLNode<K, V>) node.getLeft();
         AVLNode<K, V> castR = (AVLNode<K, V>) node.getRight();
 
-        return height(castL) - height(castR);
+        return height(castR) - height(castL);
     }
 
     public void rebalance(AVLNode<K, V> node, K key) {
-        int balance = getBalanceFactor(node);
+        while (node != null) {
+            updateHeight(node);
+            int balance = getBalanceFactor(node);
+            int rSonBalance = getBalanceFactor((AVLNode<K, V>) node.getRight());
+            int lSonBalance = getBalanceFactor((AVLNode<K, V>) node.getLeft());
+            // A-B
+            if (balance > 1 && (rSonBalance == 0 || rSonBalance == 1)) {
+                leftRotate(node);
+            }
 
-        if (balance < -1 && key.compareTo(node.getLeft().getKey()) < 0) {
-            rightRotate(node);
+            // C
+            if (balance > 1 && rSonBalance == -1) {
+                rightRotate((AVLNode<K, V>) node.getRight());
+                leftRotate(node);
+            }
+
+            // D-E
+            if (balance < -1 && (lSonBalance == 0 || lSonBalance == -1)) {
+                rightRotate(node);
+            }
+
+            // F
+            if (balance < -1 && lSonBalance == 1) {
+                leftRotate((AVLNode<K, V>) node.getLeft());
+                rightRotate(node);
+            }
+            node = (AVLNode<K, V>) node.getParent();
         }
 
-        if (balance > 1 && key.compareTo(node.getRight().getKey()) > 0) {
-            leftRotate(node);
-        }
-
-        // Left Right Case
-        if (balance < -1 && key.compareTo(node.getLeft().getKey()) > 0) {
-            node.setLeft(leftRotate((AVLNode<K, V>) node.getLeft()));
-            rightRotate(node);
-        }
-
-        // Right Left Case
-        if (balance > 1 && key.compareTo(node.getRight().getKey()) < 0) {
-            node.setRight(rightRotate((AVLNode<K, V>) node.getRight()));
-            leftRotate(node);
-        }
     }
 
 }

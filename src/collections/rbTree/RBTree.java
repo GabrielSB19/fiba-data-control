@@ -80,29 +80,27 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 				} else if (z.equals(parent.getRight())) {
 					z = parent;
 					leftRotate(z);
-				}else{
-					z = parent;
+				} else {
 					parent.setColor(BLACK);
 					grandParent.setColor(RED);
 					rightRotate(grandParent);
 				}
-				} else if(parent.equals(grandParent.getRight())) {
-					uncle = (RBNode<K, V>) grandParent.getLeft();
-					if (uncle != null && uncle.getColor()) {
-						uncle.setColor(BLACK);
-						parent.setColor(BLACK);
-						grandParent.setColor(RED);
-						z = grandParent;
-					} else if (z.equals(parent.getLeft())) {
-						z = parent;
-						rightRotate(z);				
-					}else{
-						z = rbRoot;
-						parent.setColor(BLACK);
-						grandParent.setColor(RED);
-						leftRotate(grandParent);
-					}
+			} else {
+				uncle = (RBNode<K, V>) grandParent.getLeft();
+				if (uncle != null && uncle.getColor()) {
+					uncle.setColor(BLACK);
+					parent.setColor(BLACK);
+					grandParent.setColor(RED);
+					z = grandParent;
+				} else if (z.equals(parent.getLeft())) {
+					z = parent;
+					rightRotate(z);
+				} else {
+					parent.setColor(BLACK);
+					grandParent.setColor(RED);
+					leftRotate(grandParent);
 				}
+			}
 		}
 		rbRoot.setColor(BLACK);
 	}
