@@ -33,7 +33,7 @@ public class Observable extends Thread {
             }
             br.close();
         } catch (Exception e) {
-            System.out.println("Import Error");
+            e.printStackTrace();
         }
         listener.onFinish();
     }

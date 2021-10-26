@@ -275,18 +275,18 @@ public class FibaController {
 
     @FXML
     public void search(ActionEvent event) {
-        try {       
+        try {
             int since = Integer.parseInt(txtSince.getText());
             int until = Integer.parseInt(txtUntil.getText());
-            if((searchType != 1 && until<=100)||(searchType == 1 && until<=1000)){
+            if ((searchType != 1 && until <= 100) || (searchType == 1 && until <= 1000)) {
                 if (since <= until) {
                     long start = System.currentTimeMillis();
                     onTablePlayers(pFiba.filterData(searchType, since, until));
                     long end = System.currentTimeMillis();
-                    lblTime.setText(end-start+" MilliSeconds");
+                    lblTime.setText(end - start + " MilliSeconds");
                     cancel(event);
                 }
-            }           
+            }
         } catch (NumberFormatException e) {
             System.out.println("Only numbers are allowed");
         }
@@ -370,12 +370,6 @@ public class FibaController {
     private boolean validateFileds() {
         if (txtName.getText().equals("") || txtAge.getText().equals("") || txtTeam.getText().equals("")
                 || txtPoints.getText().equals("")) {
-            try {
-                Integer.parseInt(txtPoints.getText());
-                Integer.parseInt(txtAge.getText());
-            } catch (Exception e) {
-                System.out.println("Only numbers in point TextField");
-            }
             return false;
         } else {
             return true;
@@ -393,13 +387,18 @@ public class FibaController {
     @FXML
     public void savePlayer(ActionEvent event) {
         if (validateFileds()) {
-            Player py = new Player(txtName.getText(), Integer.parseInt(txtAge.getText()), txtTeam.getText(),
-                    Integer.parseInt(txtPoints.getText()), (int) assists.getValue(), (int) blocks.getValue(),
-                    (int) rebounds.getValue(), (int) steals.getValue());
-            pFiba.addPlayer(py);
-            onTablePlayers(null);
-            lblTime.setText("");
-            cancel(event);
+            try {
+                Player py = new Player(txtName.getText(), Integer.parseInt(txtAge.getText()), txtTeam.getText(),
+                        Integer.parseInt(txtPoints.getText()), (int) assists.getValue(), (int) blocks.getValue(),
+                        (int) rebounds.getValue(), (int) steals.getValue());
+                pFiba.addPlayer(py);
+                onTablePlayers(null);
+                lblTime.setText("");
+                cancel(event);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Only numbers in number TextField");
+            }
         }
     }
 

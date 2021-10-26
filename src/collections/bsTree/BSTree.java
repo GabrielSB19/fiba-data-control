@@ -62,9 +62,13 @@ public class BSTree<K extends Comparable<K>, V> implements ITree<K, V> {
     }
 
     protected void filter(ArrayList<V> data, BSNode<K, V> current, K key) {
-        while (current != null && current.getKey().compareTo(key) == 0) {
-            data.add(current.getValue());
-            current = current.getLeft();
+        while (current != null) {
+            if(current.getKey().compareTo(key) == 0){
+                data.add(current.getValue());
+                current = current.getLeft();
+            }else{
+                current = current.getRight();
+            }
         }
     }
 
