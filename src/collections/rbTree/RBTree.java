@@ -99,8 +99,8 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 	// T2 T3 T1 T2
 	private RBNode<K, V> leftRotate(RBNode<K, V> x) {
 		RBNode<K, V> y = (RBNode<K, V>) x.getRight();// definición
-		if (x.getLeft() != null) {
-			x.getLeft().setParent(x);
+		if (y.getLeft() != null) {
+			y.getLeft().setParent(x);
 		}
 		x.setRight(y.getLeft());
 		y.setParent(x.getParent());
@@ -117,7 +117,7 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 		x.setParent(y);
 
 		// color
-		x.setColor(x.getColor());
+		y.setColor(x.getColor());
 		x.setColor(RED);// nodo nodo yx forman 3 nodos
 		return x;
 	}
@@ -148,7 +148,7 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 		y.setRight(x);
 		x.setParent(y);
 		// mantener el color
-		x.setColor(x.getColor());
+		y.setColor(x.getColor());
 		x.setColor(RED);// Almacenado temporalmente como 4 nodos rojo significa fusión
 		return x;// devuelve el nuevo nodo raíz
 	}
@@ -244,6 +244,7 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 		rbRoot.setColor(BLACK);
 
 		root = rbRoot;
+
 		return node;
 
 	}
