@@ -10,6 +10,10 @@ public class FibaDataCenter {
 
     private ITree<Integer, Player>[] trees;
 
+    public ITree<Integer, Player>[] getTrees() {
+        return this.trees;
+    }
+
     @SuppressWarnings("unchecked")
     public FibaDataCenter() {
         trees = new ITree[5];
