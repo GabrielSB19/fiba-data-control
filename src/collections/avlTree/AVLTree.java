@@ -87,7 +87,7 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
         return ancester;
     }
 
-    private int getBalanceFactor(AVLNode<K, V> node) {
+    public int getBalanceFactor(AVLNode<K, V> node) {
         if (node == null) {
             return 0;
         }
