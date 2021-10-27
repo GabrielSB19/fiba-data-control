@@ -10,29 +10,38 @@ import java.util.ArrayList;
 
 public class BSTreeTest {
 
-    public ITree<Integer, Player> setUpScenary1() {
-        ITree<Integer, Player> bsTree = new BSTree<>();
+    private Player[] players;
 
+    private void getPlayers() {
         Player player1 = new Player("David", 28, "Chicago Bulls", 345, 52, 30, 20, 10);
         Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118, 20, 35, 46, 4);
         Player player3 = new Player("Juan", 24, "Chicago Bulls", 403, 12, 45, 78, 64);
+        Player player4 = null;
 
-        bsTree.add(player1.getPoint(), player1);
-        bsTree.add(player2.getPoint(), player2);
-        bsTree.add(player3.getPoint(), player3);
+        players = new Player[] { player1, player2, player3, player4 };
+
+    }
+
+    public ITree<Integer, Player> setUpScenary1() {
+        ITree<Integer, Player> bsTree = new BSTree<>();
+
+        getPlayers();
+
+        bsTree.add(players[0].getPoint(), players[0]);
+        bsTree.add(players[1].getPoint(), players[1]);
+        bsTree.add(players[2].getPoint(), players[2]);
 
         return bsTree;
     }
 
     public ITree<Integer, Player> setUpScenary2() {
         ITree<Integer, Player> bsTree = new BSTree<>();
-        Player player1 = null;
-        Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118, 20, 35, 46, 4);
-        Player player3 = new Player("Juan", 24, "Chicago Bulls", 403, 12, 45, 78, 64);
 
-        bsTree.add(200, player1);
-        bsTree.add(player2.getPoint(), player2);
-        bsTree.add(player3.getPoint(), player3);
+        getPlayers();
+
+        bsTree.add(200, players[3]);
+        bsTree.add(players[1].getPoint(), players[1]);
+        bsTree.add(players[2].getPoint(), players[2]);
         return bsTree;
     }
 
@@ -40,25 +49,22 @@ public class BSTreeTest {
     public void inOrder() {
         ITree<Integer, Player> bsTree = setUpScenary1();
 
-        Player player1 = new Player("David", 28, "Chicago Bulls", 345, 52, 30, 20, 10);
-        Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118, 20, 35, 46, 4);
-        Player player3 = new Player("Juan", 24, "Chicago Bulls", 403, 12, 45, 78, 64);
-
         ArrayList<Player> expected = bsTree.inOrder();
 
-        assertEquals(player2, expected.get(0));
-        assertEquals(player1, expected.get(1));
-        assertEquals(player3, expected.get(2));
+        assertEquals(players[1].getPoint(), expected.get(0).getPoint());
+        assertEquals(players[0].getPoint(), expected.get(1).getPoint());
+        assertEquals(players[2].getPoint(), expected.get(2).getPoint());
     }
 
     @Test
     public void inOrder2() {
 
         ITree<Integer, Player> bsTree = setUpScenary2();
+
         ArrayList<Player> expected = bsTree.inOrder();
 
-        assertEquals(" 118 403", expected);
-
+        assertEquals(players[1].getPoint(), expected.get(0).getPoint());
+        assertEquals(players[2].getPoint(), expected.get(1).getPoint());
     }
 
     @Test
@@ -66,18 +72,9 @@ public class BSTreeTest {
 
         ITree<Integer, Player> bsTree = setUpScenary1();
 
-        Player player1 = new Player("David", 28, "Chicago Bulls", 345, 52, 30, 20, 10);
-        Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118, 20, 35, 46, 4);
-        Player player3 = new Player("Juan", 24, "Chicago Bulls", 403, 12, 45, 78, 64);
+        BSNode<Integer, Player> playerExpected = bsTree.search(403, players[2]);
 
-        bsTree.add(player1.getPoint(), player1);
-        bsTree.add(player2.getPoint(), player2);
-        bsTree.add(player3.getPoint(), player3);
-
-        BSNode<Integer, Player> real = new BSNode<>(player3.getPoint(), player3);
-        BSNode<Integer, Player> playerExpected = bsTree.search(403, player3);
-
-        assertEquals(playerExpected, real);
+        assertEquals(playerExpected.getValue().getPoint(), players[2].getPoint());
 
     }
 
@@ -96,20 +93,11 @@ public class BSTreeTest {
     public void succesor() {
         ITree<Integer, Player> bsTree = setUpScenary1();
 
-        Player player1 = new Player("David", 28, "Chicago Bulls", 345, 52, 30, 20, 10);
-        Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118, 20, 35, 46, 4);
-        Player player3 = new Player("Juan", 24, "Chicago Bulls", 403, 12, 45, 78, 64);
+        BSNode<Integer, Player> toSearch = new BSNode<>(345, players[0]);
 
-        bsTree.add(player1.getPoint(), player1);
-        bsTree.add(player2.getPoint(), player2);
-        bsTree.add(player3.getPoint(), player3);
+        BSNode<Integer, Player> succesor = bsTree.sucessor(toSearch);
 
-        /*
-         * 
-         * BSNode<Integer, Player> succesor = bsTree.sucessor(345, player2);
-         * 
-         * assertEquals(403, succesor);
-         */
+        assertEquals(toSearch, succesor);
 
     }
 
@@ -117,11 +105,11 @@ public class BSTreeTest {
     public void succesor2() {
         ITree<Integer, Player> bsTree = setUpScenary2();
 
-        /*
-         * Integer succesor = bsTree.sucessor(200, null);
-         * 
-         * assertEquals(null, succesor);
-         */
+        BSNode<Integer, Player> toSearch = new BSNode<>(345, players[0]);
+
+        BSNode<Integer, Player> succesor = bsTree.sucessor(toSearch);
+
+        assertEquals(toSearch, succesor);
 
     }
 
@@ -140,8 +128,8 @@ public class BSTreeTest {
         BSNode<Integer, Player> pE = bsTree.search(345, player1);
         BSNode<Integer, Player> pE2 = bsTree.search(118, player2);
 
-        assertEquals(pE, player1.getName());
-        assertEquals(pE2, player2.getName());
+        assertEquals(pE, bsTree.add(player1.getPoint(), player1));
+        assertEquals(pE2, bsTree.add(player2.getPoint(), player2));
 
     }
 
@@ -157,31 +145,23 @@ public class BSTreeTest {
         bsTree.add(player2.getPoint(), player2);
         bsTree.add(200, player3);
 
-        BSNode<Integer, Player> pE = bsTree.search(345, null);
+        BSNode<Integer, Player> pE = bsTree.search(200, null);
 
-        assertEquals(pE, player1.getName());
-        assertEquals(bsTree.search(200, null), null);
+        assertEquals(pE, null);
 
     }
 
     @Test
     public void deletion() {
 
-        Player player1 = new Player("David", 28, "Chicago Bulls", 345, 52, 30, 20, 10);
-        Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118, 20, 35, 46, 4);
-        Player player3 = new Player("Juan", 24, "Chicago Bulls", 403, 12, 45, 78, 64);
-
         ITree<Integer, Player> bsTree = setUpScenary1();
 
-        bsTree.add(player1.getPoint(), player1);
-        bsTree.add(player2.getPoint(), player2);
-        bsTree.add(player3.getPoint(), player3);
+        bsTree.delete(118, players[1]);
 
-        ArrayList<Player> inOrder = bsTree.inOrder();
+        ArrayList<Player> inOrderAfter = bsTree.inOrder();
 
-        bsTree.delete(118, player2);
-
-        assertEquals(inOrder, bsTree.inOrder());
+        assertEquals(inOrderAfter.get(0).getPoint(), 345);
+        assertEquals(inOrderAfter.get(1).getPoint(), 403);
     }
 
     @Test
