@@ -2,7 +2,7 @@ package collections.rbTree;
 
 import collections.bsTree.BSNode;
 
-public class RBNode<K,V> extends BSNode<K,V>{
+public class RBNode<K, V> extends BSNode<K, V> {
 
     private boolean color;
 
