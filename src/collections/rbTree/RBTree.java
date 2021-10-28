@@ -1,5 +1,6 @@
 package collections.rbTree;
 
+import collections.bsTree.BSNode;
 import collections.bsTree.BSTree;
 
 public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
@@ -8,16 +9,15 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 	private static final boolean BLACK = false;
 	private RBNode<K, V> rbRoot;
 
-	private void leftRotate(RBNode<K, V> x) {
+	private RBNode<K, V> leftRotate(RBNode<K, V> x) {
 		RBNode<K, V> y = (RBNode<K, V>) x.getRight();
 		if (y.getLeft() != null) {
-			x.setRight(y.getLeft());
 			y.getLeft().setParent(x);
 		}
+		x.setRight(y.getLeft());
 		y.setParent(x.getParent());
 
 		if (x.getParent() == null) {
-			root = y;
 			rbRoot = y;
 		} else if (x == x.getParent().getLeft()) {
 			x.getParent().setLeft(y);
@@ -28,18 +28,21 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 		y.setLeft(x);
 		x.setParent(y);
 
+		y.setColor(x.getColor());
+		x.setColor(RED);
+		return y;
 	}
 
-	private void rightRotate(RBNode<K, V> x) {
+	private RBNode<K, V> rightRotate(RBNode<K, V> x) {
 		RBNode<K, V> y = (RBNode<K, V>) x.getLeft();
+
 		if (y.getRight() != null) {
-			x.setLeft(y.getRight());
 			y.getRight().setParent(x);
 		}
+		x.setLeft(y.getRight());
 		y.setParent(x.getParent());
 
 		if (x.getParent() == null) {
-			root = y;
 			rbRoot = y;
 		} else if (x == x.getParent().getLeft()) {
 			x.getParent().setLeft(y);
@@ -50,124 +53,68 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 		y.setRight(x);
 		x.setParent(y);
 
+		y.setColor(x.getColor());
+		x.setColor(RED);
+		return y;
+	}
+
+	private void flipColors(RBNode<K, V> node) {
+		node.setColor(RED);
+		((RBNode<K, V>) node.getLeft()).setColor(BLACK);
+		((RBNode<K, V>) node.getRight()).setColor(BLACK);
+	}
+
+	private boolean isRed(BSNode<K, V> node) {
+		if (node == null)// Null nodes are null by default
+			return BLACK;
+		return ((RBNode<K, V>) node).getColor();
 	}
 
 	@Override
 	public RBNode<K, V> add(K key, V value) {
-		RBNode<K, V> newNode = new RBNode<K, V>(key, value);
-		RBNode<K, V> ancester = (RBNode<K, V>) super.add(newNode);
-		if (ancester != null) {
-			insertFixUp(newNode);
-		} else {
-			rbRoot = (RBNode<K, V>) root;
-			rbRoot.setColor(BLACK);
-		}
-		return ancester;
+		rbRoot = add(rbRoot, key, value);
+
+		((RBNode<K, V>) rbRoot).setColor(BLACK);
+
+		root = rbRoot;
+		return rbRoot;
 	}
 
-	private void insertFixUp(RBNode<K, V> z) {
-		while (!z.equals(rbRoot) && ((RBNode<K, V>) z.getParent()).getColor()) {
-			RBNode<K, V> uncle = null;
-			RBNode<K, V> parent = (RBNode<K, V>) z.getParent();
-			RBNode<K, V> grandParent = (RBNode<K, V>) z.getParent().getParent();
-			if (parent.equals(grandParent.getLeft())) {
-				uncle = (RBNode<K, V>) grandParent.getRight();
-				if (uncle != null && uncle.getColor()) {
-					uncle.setColor(BLACK);
-					parent.setColor(BLACK);
-					grandParent.setColor(RED);
-					z = grandParent;
-				} else if (z.equals(parent.getRight())) {
-					z = parent;
-					leftRotate(z);
-				} else {
-					parent.setColor(BLACK);
-					grandParent.setColor(RED);
-					rightRotate(grandParent);
-				}
-			} else {
-				uncle = (RBNode<K, V>) grandParent.getLeft();
-				if (uncle != null && uncle.getColor()) {
-					uncle.setColor(BLACK);
-					parent.setColor(BLACK);
-					grandParent.setColor(RED);
-					z = grandParent;
-				} else if (z.equals(parent.getLeft())) {
-					z = parent;
-					rightRotate(z);
-				} else {
-					parent.setColor(BLACK);
-					grandParent.setColor(RED);
-					leftRotate(grandParent);
-				}
-			}
+	private RBNode<K, V> add(RBNode<K, V> node, K key, V value) {
+		if (node == null) {
+			return new RBNode<K, V>(key, value);
 		}
-		rbRoot.setColor(BLACK);
+
+		if (key.compareTo(node.getKey()) <= 0) {
+			((RBNode<K, V>) node).setLeft((add((RBNode<K, V>) node.getLeft(), key, value)));
+		} else if (key.compareTo(node.getKey()) > 0) {
+			((RBNode<K, V>) node).setRight((add((RBNode<K, V>) node.getRight(), key, value)));
+
+		}
+
+		// girar a la izquierda
+		if (isRed(node.getRight()) && !isRed(node.getLeft()))// El niño derecho es rojo, el niño izquierdo no es rojo
+			node = leftRotate(node);
+		// Gira a la derecha
+		if (isRed(node.getLeft()) && isRed(node.getLeft().getLeft()))// El hijo izquierdo es rojo, el hijo izquierdo del
+																		// // hijo izquierdo
+			// también es rojo
+			node = rightRotate(node);
+		// cambio de color
+		if (isRed(node.getLeft()) && isRed(node.getRight()))// Tanto el niño izquierdo como el derecho son rojos
+			flipColors(node);
+
+		return node;
+
 	}
 
 	@Override
 	public RBNode<K, V> delete(K key, V value) {
-		RBNode<K, V> ancester = (RBNode<K, V>) super.delete(key, value);
-		if (ancester != null && ancester.getColor() == BLACK) {
-			deleteFixUp(ancester);
-		} else {
-			rbRoot = null;
-		}
-		return ancester;
+
+		rbRoot = (RBNode<K, V>) super.delete(key, value);
+
+		return rbRoot;
+
 	}
 
-	private void deleteFixUp(RBNode<K, V> z) {
-		while (z != rbRoot && ((RBNode<K, V>) z).getColor() == BLACK) {
-			RBNode<K, V> brother = null;
-			RBNode<K, V> parent = (RBNode<K, V>) z.getParent();
-			if (z.equals(parent.getLeft())) {
-				brother = (RBNode<K, V>) parent.getRight();
-				if (brother.getColor() == RED) {
-					brother.setColor(BLACK);
-					parent.setColor(RED);
-					leftRotate(parent);
-					brother = (RBNode<K, V>) z.getParent().getRight();
-				}
-				if (!((RBNode<K, V>) brother.getLeft()).getColor() && !((RBNode<K, V>) brother.getRight()).getColor()) {
-					brother.setColor(RED);
-					z = parent;
-				} else if (!((RBNode<K, V>) brother.getRight()).getColor()) {
-					((RBNode<K, V>) brother.getLeft()).setColor(BLACK);
-					brother.setColor(RED);
-					rightRotate(brother);
-					brother = (RBNode<K, V>) parent.getRight();
-				} else {
-					brother.setColor(parent.getColor());
-					parent.setColor(BLACK);
-					((RBNode<K, V>) brother.getRight()).setColor(BLACK);
-					leftRotate(parent);
-					z = rbRoot;
-				}
-			} else {
-				brother = (RBNode<K, V>) parent.getLeft();
-				if (brother.getColor() == RED) {
-					brother.setColor(BLACK);
-					parent.setColor(RED);
-					leftRotate(parent);
-					brother = (RBNode<K, V>) z.getParent().getLeft();
-				}
-				if (!((RBNode<K, V>) brother.getRight()).getColor() && !((RBNode<K, V>) brother.getLeft()).getColor()) {
-					brother.setColor(RED);
-					z = parent;
-				} else if (!((RBNode<K, V>) brother.getLeft()).getColor()) {
-					((RBNode<K, V>) brother.getRight()).setColor(BLACK);
-					brother.setColor(RED);
-					rightRotate(brother);
-					brother = (RBNode<K, V>) parent.getLeft();
-				} else {
-					brother.setColor(parent.getColor());
-					parent.setColor(BLACK);
-					((RBNode<K, V>) brother.getLeft()).setColor(BLACK);
-					leftRotate(parent);
-					z = rbRoot;
-				}
-			}
-		}
-		z.setColor(BLACK);
-	}
 }

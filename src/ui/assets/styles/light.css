@@ -51,6 +51,13 @@
 .table-view .column-header .label{
     -fx-alignment: CENTER;
 }
+.jfx-text-field{
+    -fx-font-family: "Century Gothic" ;
+}
+.text-input {
+    -fx-text-fill: rgb(46, 46, 46);
+    -fx-prompt-text-fill: rgb(32, 32, 32);
+}
 .table-cell{
     -fx-font: 16px "Century Gothic";
     -fx-alignment: CENTER;

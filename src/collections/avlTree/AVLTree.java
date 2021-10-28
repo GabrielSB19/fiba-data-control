@@ -18,7 +18,7 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
         node.setHeight(1 + max(height(castL), height(castR)));
     }
 
-    public void leftRotate(AVLNode<K, V> x) {
+    private void leftRotate(AVLNode<K, V> x) {
         AVLNode<K, V> y = (AVLNode<K, V>) x.getRight();
 
         if (y.getLeft() != null) {
@@ -43,7 +43,7 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 
     }
 
-    public void rightRotate(AVLNode<K, V> x) {
+    private void rightRotate(AVLNode<K, V> x) {
         AVLNode<K, V> y = (AVLNode<K, V>) x.getLeft();
 
         if (y.getRight() != null) {
@@ -72,7 +72,7 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
     public AVLNode<K, V> add(K key, V value) {
         AVLNode<K, V> newNode = new AVLNode<>(key, value);
         AVLNode<K, V> ancester = (AVLNode<K, V>) super.add(newNode);
-        if (ancester != null) {         
+        if (ancester != null) {
             rebalance(ancester, key);
         }
         return ancester;
@@ -87,7 +87,7 @@ public class AVLTree<K extends Comparable<K>, V> extends BSTree<K, V> {
         return ancester;
     }
 
-    private int getBalanceFactor(AVLNode<K, V> node) {
+    public int getBalanceFactor(AVLNode<K, V> node) {
         if (node == null) {
             return 0;
         }
