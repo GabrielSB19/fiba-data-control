@@ -92,6 +92,9 @@ public class FibaController {
     private TableColumn<Player, String> tblcActions;
 
     @FXML
+    private JFXTextField txtLinear;
+
+    @FXML
     private Label lblTime;
 
     @FXML
@@ -249,6 +252,14 @@ public class FibaController {
     }
 
     @FXML
+    public void searchLinear(ActionEvent event) {
+        long start = System.currentTimeMillis();
+        onTablePlayers(pFiba.searchLinear(txtLinear.getText()));
+        long end = System.currentTimeMillis();
+        lblTime.setText(end - start + " MilliSeconds");
+    }
+
+    @FXML
     public void pointSearch(ActionEvent event) {
         initDialog(1, "Point Searching Type");
     }
@@ -391,7 +402,7 @@ public class FibaController {
                 Player py = new Player(txtName.getText(), Integer.parseInt(txtAge.getText()), txtTeam.getText(),
                         Integer.parseInt(txtPoints.getText()), (int) assists.getValue(), (int) blocks.getValue(),
                         (int) rebounds.getValue(), (int) steals.getValue());
-                pFiba.addPlayer(py);
+                pFiba.add(py);
                 onTablePlayers(null);
                 lblTime.setText("");
                 cancel(event);
