@@ -47,10 +47,10 @@ Clarifications: By default the software handles a set of data that is found in d
 
 ## Dashboard ⛹🏾‍♂️
 
-* <b>Light Pallete</b> <br><br>
+* <b>Dark Palette</b> <br><br>
 ![ScreenShot](https://github.com/alejandro945/fiba-data-control/blob/master/src/ui/assets/images/Screen1.png)<br><br>
 
-* <b>Dark Pallete</b> <br><br>
+* <b>Light Palette</b> <br><br>
 ![ScreenShot](https://github.com/alejandro945/fiba-data-control/blob/master/src/ui/assets/images/Screen2.png)<br><br>
 
 ## Player Modal 🏆
