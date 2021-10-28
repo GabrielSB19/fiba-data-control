@@ -90,11 +90,7 @@ public class FibaDataCenter {
     }
 
     public ArrayList<Player> getPlayers() {
-<<<<<<< HEAD
-        return trees[1].inOrder();
-=======
         return memory;
->>>>>>> d2b1d43fc25e393c73036a3e92df51bca368ce0c
     }
 
 }
