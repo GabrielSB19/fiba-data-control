@@ -64,7 +64,7 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 		((RBNode<K, V>) node.getRight()).setColor(BLACK);
 	}
 
-	private boolean isRed(BSNode<K, V> node) {
+	public boolean isRed(BSNode<K, V> node) {
 		if (node == null)// Null nodes are null by default
 			return BLACK;
 		return ((RBNode<K, V>) node).getColor();

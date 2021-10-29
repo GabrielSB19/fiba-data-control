@@ -19,9 +19,8 @@ public class FibaDataCenterTest {
         Player player1 = new Player("David", 28, "Chicago Bulls", 345, 52, 30, 20, 10);
         Player player2 = new Player("Jacobo", 20, "Chicago Bulls", 118, 20, 35, 46, 4);
         Player player3 = new Player("Juan", 24, "Chicago Bulls", 403, 12, 45, 78, 64);
-        Player player4 = null;
 
-        players = new Player[] { player1, player2, player3, player4 };
+        players = new Player[] { player1, player2, player3 };
 
     }
 
