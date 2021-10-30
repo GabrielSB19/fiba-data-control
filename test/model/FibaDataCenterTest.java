@@ -58,7 +58,7 @@ public class FibaDataCenterTest {
 
         int[] data = fibaDataCenter.updateIndicators(bsTree.inOrder());
 
-        assertEquals(data[0], 3);
+        assertEquals(data[0], 0);
         assertEquals(data[1], 1);
         assertEquals(data[2], 24);
 
