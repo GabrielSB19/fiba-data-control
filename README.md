@@ -39,7 +39,7 @@ Clarifications: By default the software handles a set of data that is found in d
 
 * Click here ➡️ [Engineering Method](https://github.com/alejandro945/fiba-data-control/blob/master/docs/ENGINEERING%20METHOD.pdf)
 
-* Click here ➡️ [Requirements](https://github.com/alejandro945/fiba-data-control/blob/master/docs/FUNCTIONAL%20REQUIREMENTS.pdf)
+* Click here ➡️ [Requirements and Diagram Class](https://github.com/alejandro945/fiba-data-control/blob/master/docs/DOCUMENTS%20TI2.pdf)
 
 ## Splash Screen 🚀
 * <b>Loader Screen</b> <br><br>
@@ -80,6 +80,7 @@ _Project tools_
 * Linux
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+
 ## Authors ✒️
 
 * **Alejandro Varela**  - [Alejandro Varela](https://github.com/alejandro945)
