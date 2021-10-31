@@ -110,11 +110,9 @@ public class RBTree<K extends Comparable<K>, V> extends BSTree<K, V> {
 
 	@Override
 	public RBNode<K, V> delete(K key, V value) {
-
-		rbRoot = (RBNode<K, V>) super.delete(key, value);
-
+		super.delete(key, value);
+		root = rbRoot;
 		return rbRoot;
-
 	}
 
 }
